@@ -9,26 +9,18 @@ package model;
  *
  * @author igor-bueno
  */
-public class Localizacao {
-    private Integer id;
+public class Localizacao extends IEntidade{
     private Double latitude;
     private Double longitude;
 
     public Localizacao() {
+        super();
     }
 
     public Localizacao(Integer id, Double latitude, Double longitude) {
-        this.id = id;
+        super(id);
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Double getLatitude() {
@@ -46,4 +38,11 @@ public class Localizacao {
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }    
+
+    @Override
+    public String toString() {
+        return "Localizacao{"+ "id=" + super.getId() + "latitude=" + latitude + ", longitude=" + longitude + '}';
+    }
+    
+    
 }

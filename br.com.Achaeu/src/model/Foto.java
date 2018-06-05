@@ -1,22 +1,17 @@
 package model;
 
-public class Foto {
-    private Integer id;
+public class Foto extends IEntidade{
     private String diretorioAbsoluto;
     private Integer idLocal;
 
+    public Foto() {
+        super();
+    }    
+    
     public Foto(Integer id, String diretorioAbsoluto, Integer idLocal) {
-        this.id = id;
+        super(id);
         this.diretorioAbsoluto = diretorioAbsoluto;
         this.idLocal = idLocal;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getDiretorioAbsoluto() {
@@ -37,6 +32,6 @@ public class Foto {
 
     @Override
     public String toString() {
-        return "Foto{" + "id=" + id + ", diretorioAbsoluto=" + diretorioAbsoluto + ", idLocal=" + idLocal + '}';
+        return "Foto{" + "id=" + super.getId() + ", diretorioAbsoluto=" + diretorioAbsoluto + ", idLocal=" + idLocal + '}';
     }    
 }

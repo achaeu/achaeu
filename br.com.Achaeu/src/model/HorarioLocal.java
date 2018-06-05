@@ -11,8 +11,7 @@ import java.sql.Time;
  *
  * @author igor-bueno
  */
-public class HorarioLocal {
-    private Integer id;
+public class HorarioLocal extends IEntidade{
     private Integer idHorario;
     private Time entrada1;
     private Time saida1;
@@ -25,7 +24,7 @@ public class HorarioLocal {
     }
 
     public HorarioLocal(Integer id, Integer idHorario, Time entrada1, Time saida1, Time entrada2, Time saida2, Integer funcionamento, Integer diaSemana) {
-        this.id = id;
+        super(id);
         this.idHorario = idHorario;
         this.entrada1 = entrada1;
         this.saida1 = saida1;
@@ -33,14 +32,6 @@ public class HorarioLocal {
         this.saida2 = saida2;
         this.funcionamento = funcionamento;
         this.diaSemana = diaSemana;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getIdHorario() {
@@ -101,6 +92,6 @@ public class HorarioLocal {
 
     @Override
     public String toString() {
-        return "HorarioLocal{" + "id=" + id + ", idHorario=" + idHorario + ", entrada1=" + entrada1 + ", saida1=" + saida1 + ", entrada2=" + entrada2 + ", saida2=" + saida2 + ", funcionamento=" + funcionamento + ", diaSemana=" + diaSemana + '}';
+        return "HorarioLocal{" + "id=" + super.getId() + ", idHorario=" + idHorario + ", entrada1=" + entrada1 + ", saida1=" + saida1 + ", entrada2=" + entrada2 + ", saida2=" + saida2 + ", funcionamento=" + funcionamento + ", diaSemana=" + diaSemana + '}';
     } 
 }
