@@ -11,8 +11,7 @@ import java.security.Timestamp;
  *
  * @author igor-bueno
  */
-public class Local {
-    private Integer id;
+public class Local extends IEntidade{
     private String nome;
     private String descricao;
     private Timestamp dataCriacao;
@@ -24,10 +23,11 @@ public class Local {
     private Integer idCategoria;
 
     public Local() {
+        super();
     }
 
     public Local(Integer id, String nome, String descricao, Timestamp dataCriacao, Timestamp dataAlteracao, Integer idUsuario, Integer idEndereco, String telefone1, String telefone2, Integer idCategoria) {
-        this.id = id;
+        super(id);
         this.nome = nome;
         this.descricao = descricao;
         this.dataCriacao = dataCriacao;
@@ -37,14 +37,6 @@ public class Local {
         this.telefone1 = telefone1;
         this.telefone2 = telefone2;
         this.idCategoria = idCategoria;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -118,4 +110,11 @@ public class Local {
     public void setIdCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
     }            
+
+    @Override
+    public String toString() {
+        return "Local{"+ "id=" + super.getId() + "nome=" + nome + ", descricao=" + descricao + ", dataCriacao=" + dataCriacao + ", dataAlteracao=" + dataAlteracao + ", idUsuario=" + idUsuario + ", idEndereco=" + idEndereco + ", telefone1=" + telefone1 + ", telefone2=" + telefone2 + ", idCategoria=" + idCategoria + '}';
+    }
+    
+    
 }

@@ -9,8 +9,7 @@ package model;
  *
  * @author igor-bueno
  */
-public class Endereco {
-    private Integer id;
+public class Endereco extends IEntidade {   
     private String logradouro;
     private Integer numero;
     private String bairro;
@@ -23,7 +22,7 @@ public class Endereco {
     }
 
     public Endereco(Integer id, String logradouro, Integer numero, String bairro, String cep, String cidade, String uf, Integer idLocalizacao) {
-        this.id = id;
+        super(id);
         this.logradouro = logradouro;
         this.numero = numero;
         this.bairro = bairro;
@@ -31,14 +30,6 @@ public class Endereco {
         this.cidade = cidade;
         this.uf = uf;
         this.idLocalizacao = idLocalizacao;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getLogradouro() {
@@ -99,6 +90,6 @@ public class Endereco {
 
     @Override
     public String toString() {
-        return "Endereco{" + "id=" + id + ", logradouro=" + logradouro + ", numero=" + numero + ", bairro=" + bairro + ", cep=" + cep + ", cidade=" + cidade + ", uf=" + uf + ", idLocalizacao=" + idLocalizacao + '}';
+        return "Endereco{" + "id=" + super.getId() + ", logradouro=" + logradouro + ", numero=" + numero + ", bairro=" + bairro + ", cep=" + cep + ", cidade=" + cidade + ", uf=" + uf + ", idLocalizacao=" + idLocalizacao + '}';
     }
 }

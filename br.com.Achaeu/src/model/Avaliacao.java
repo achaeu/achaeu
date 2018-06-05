@@ -5,14 +5,13 @@
  */
 package model;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 /**
  *
  * @author igor-bueno
  */
-public class Avaliacao {
-    private Integer id;
+public class Avaliacao extends IEntidade{
     private String conteudo;
     private int idUsuario;
     private float nota;
@@ -21,24 +20,17 @@ public class Avaliacao {
     private Timestamp dataAlteracao;
 
     public Avaliacao() {
+        super();
     }
 
     public Avaliacao(Integer id, String conteudo, int idUsuario, float nota, int idLocal, Timestamp dataCriacao, Timestamp dataAlteracao) {
-        this.id = id;
+        super(id);
         this.conteudo = conteudo;
         this.idUsuario = idUsuario;
         this.nota = nota;
         this.idLocal = idLocal;
         this.dataCriacao = dataCriacao;
         this.dataAlteracao = dataAlteracao;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getConteudo() {
@@ -91,6 +83,6 @@ public class Avaliacao {
 
     @Override
     public String toString() {
-        return "Avaliacao{" + "id=" + id + ", conteudo=" + conteudo + ", idUsuario=" + idUsuario + ", nota=" + nota + ", idLocal=" + idLocal + ", dataCriacao=" + dataCriacao + ", dataAlteracao=" + dataAlteracao + '}';
+        return "Avaliacao{" + "id=" + super.getId() + ", conteudo=" + conteudo + ", idUsuario=" + idUsuario + ", nota=" + nota + ", idLocal=" + idLocal + ", dataCriacao=" + dataCriacao + ", dataAlteracao=" + dataAlteracao + '}';
     } 
 }

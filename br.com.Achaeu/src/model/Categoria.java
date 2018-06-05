@@ -9,28 +9,20 @@ package model;
  *
  * @author igor-bueno
  */
-public class Categoria {
-    private Integer id;
+public class Categoria extends IEntidade{
     private String nome;
     private String tags;
     private Integer idCatPai;
 
     public Categoria() {
+        super();
     }
 
     public Categoria(Integer id, String nome, String tags, Integer idCatPai) {
-        this.id = id;
+        super(id);
         this.nome = nome;
         this.tags = tags;
         this.idCatPai = idCatPai;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -59,6 +51,6 @@ public class Categoria {
 
     @Override
     public String toString() {
-        return "Categoria{" + "id=" + id + ", nome=" + nome + ", tags=" + tags + ", idCatPai=" + idCatPai + '}';
+        return "Categoria{" + "id=" + super.getId() + ", nome=" + nome + ", tags=" + tags + ", idCatPai=" + idCatPai + '}';
     }       
 }

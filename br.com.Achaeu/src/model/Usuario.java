@@ -2,9 +2,7 @@ package model;
 
 import java.security.Timestamp;
 
-public class Usuario {
-
-    private Integer id;
+public class Usuario extends IEntidade{
     private String nome;
     private String email;
     private String senha;
@@ -16,21 +14,13 @@ public class Usuario {
     }
 
     public Usuario(Integer id, String nome, String email, String senha, int nivel, Timestamp dataCriacao, Timestamp dataAlteracao) {
-        this.id = id;
+        super(id);
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.nivel = nivel;
         this.dataCriacao = dataCriacao;
         this.dataAlteracao = dataAlteracao;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -83,6 +73,6 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", nivel=" + nivel + ", dataCriacao=" + dataCriacao + ", dataAlteracao=" + dataAlteracao + '}';
+        return "Usuario{" + "id=" + super.getId() + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", nivel=" + nivel + ", dataCriacao=" + dataCriacao + ", dataAlteracao=" + dataAlteracao + '}';
     }    
 }
