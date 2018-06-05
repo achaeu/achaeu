@@ -90,7 +90,7 @@ public class AvaliacaoDAO implements IRepository {
 
     @Override
     public IEntidade obterUm(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     @Override
