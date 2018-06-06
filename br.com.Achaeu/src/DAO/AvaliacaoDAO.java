@@ -97,7 +97,7 @@ public class AvaliacaoDAO implements IRepository {
             PreparedStatement stmt = null;
             ResultSet rs = null;
 
-            String sql = "SELECT * FROM avaliacao WHERE id=" + id;
+            String sql = "SELECT * FROM avaliacao WHERE id=" + Integer.toString(id);
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -158,7 +158,25 @@ public class AvaliacaoDAO implements IRepository {
 
     @Override
     public IEntidade remover(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+
+            Connection conexao = ConnectionManager.getConexao();
+            PreparedStatement stmt = null;
+            Avaliacao avaliacao = new Avaliacao();
+            avaliacao = (Avaliacao) obterUm(id);
+
+            String sql = "DELETE avaliacao WHERE ID =" + Integer.toString(id);
+            stmt = conexao.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+            return avaliacao;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AvaliacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
     }
 
 }
