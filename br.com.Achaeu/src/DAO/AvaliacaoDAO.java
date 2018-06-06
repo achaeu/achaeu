@@ -64,7 +64,7 @@ public class AvaliacaoDAO implements IRepository {
             Avaliacao avaliacao = (Avaliacao) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "UPDATE AVALIACAO SET CONTEUDO = ?, ID_USUARIO = ?, NOTA = ?, ID_LOCAL = ?,"
+            String sql = "UPDATE avaliacao SET CONTEUDO = ?, ID_USUARIO = ?, NOTA = ?, ID_LOCAL = ?,"
                     + "DATA_CRIACAO = ?, DATA_ALTERACAO = ? WHERE ID = ?;";
 
             stmt = conexao.prepareStatement(sql);
