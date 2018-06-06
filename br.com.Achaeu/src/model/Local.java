@@ -17,26 +17,35 @@ public class Local extends IEntidade{
     private Timestamp dataCriacao;
     private Timestamp dataAlteracao;
     private Integer idUsuario;
+    private Usuario usuario;
     private Integer idEndereco;
+    private Endereco endereco;
     private String telefone1;
     private String telefone2;
     private Integer idCategoria;
+    private Categoria categoria;
 
     public Local() {
         super();
+        this.usuario = new Usuario();
+        this.endereco = new Endereco();
+        this.categoria = new Categoria();
     }
 
-    public Local(Integer id, String nome, String descricao, Timestamp dataCriacao, Timestamp dataAlteracao, Integer idUsuario, Integer idEndereco, String telefone1, String telefone2, Integer idCategoria) {
+    public Local(String nome, String descricao, Timestamp dataCriacao, Timestamp dataAlteracao, Integer idUsuario, Usuario usuario, Integer idEndereco, Endereco endereco, String telefone1, String telefone2, Integer idCategoria, Categoria categoria, Integer id) {
         super(id);
         this.nome = nome;
         this.descricao = descricao;
         this.dataCriacao = dataCriacao;
         this.dataAlteracao = dataAlteracao;
         this.idUsuario = idUsuario;
+        this.usuario = usuario;
         this.idEndereco = idEndereco;
+        this.endereco = endereco;
         this.telefone1 = telefone1;
         this.telefone2 = telefone2;
         this.idCategoria = idCategoria;
+        this.categoria = categoria;
     }
 
     public String getNome() {
@@ -79,12 +88,28 @@ public class Local extends IEntidade{
         this.idUsuario = idUsuario;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public Integer getIdEndereco() {
         return idEndereco;
     }
 
     public void setIdEndereco(Integer idEndereco) {
         this.idEndereco = idEndereco;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     public String getTelefone1() {
@@ -109,12 +134,18 @@ public class Local extends IEntidade{
 
     public void setIdCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
-    }            
+    }
 
-    @Override
-    public String toString() {
-        return "Local{"+ "id=" + super.getId() + "nome=" + nome + ", descricao=" + descricao + ", dataCriacao=" + dataCriacao + ", dataAlteracao=" + dataAlteracao + ", idUsuario=" + idUsuario + ", idEndereco=" + idEndereco + ", telefone1=" + telefone1 + ", telefone2=" + telefone2 + ", idCategoria=" + idCategoria + '}';
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
     
-    
+    @Override
+    public String toString() {
+        return "Local{" + "nome=" + nome + ", descricao=" + descricao + ", dataCriacao=" + dataCriacao + ", dataAlteracao=" + dataAlteracao + ", idUsuario=" + idUsuario + ", usuario=" + usuario + ", idEndereco=" + idEndereco + ", endereco=" + endereco + ", telefone1=" + telefone1 + ", telefone2=" + telefone2 + ", idCategoria=" + idCategoria + ", categoria=" + categoria + '}';
+    }  
 }
