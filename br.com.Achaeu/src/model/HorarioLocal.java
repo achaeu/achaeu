@@ -82,6 +82,6 @@ public class HorarioLocal extends IEntidade{
 
     @Override
     public String toString() {
-        return "HorarioLocal{" + "id=" + super.getId() + ", entrada1=" + entrada1 + ", saida1=" + saida1 + ", entrada2=" + entrada2 + ", saida2=" + saida2 + ", funcionamento=" + funcionamento + ", diaSemana=" + diaSemana + '}';
-    } 
+        return "HorarioLocal{" + "entrada1=" + entrada1 + ", saida1=" + saida1 + ", entrada2=" + entrada2 + ", saida2=" + saida2 + ", funcionamento=" + funcionamento + ", diaSemana=" + diaSemana + '}';
+    }
 }
