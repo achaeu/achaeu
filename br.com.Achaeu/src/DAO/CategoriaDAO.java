@@ -50,7 +50,7 @@ public class CategoriaDAO implements IRepository {
             return categoria;
 
         } catch (SQLException ex) {
-            Logger.getLogger(AvaliacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -78,7 +78,7 @@ public class CategoriaDAO implements IRepository {
             return categoria;
 
         } catch (SQLException ex) {
-            Logger.getLogger(AvaliacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -107,7 +107,7 @@ public class CategoriaDAO implements IRepository {
             return categoria;
 
         } catch (SQLException ex) {
-            Logger.getLogger(AvaliacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
@@ -139,7 +139,7 @@ public class CategoriaDAO implements IRepository {
             return categorias;
 
         } catch (SQLException ex) {
-            Logger.getLogger(AvaliacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }}
 
@@ -160,7 +160,7 @@ public class CategoriaDAO implements IRepository {
             return categoria;
 
         } catch (SQLException ex) {
-            Logger.getLogger(AvaliacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
