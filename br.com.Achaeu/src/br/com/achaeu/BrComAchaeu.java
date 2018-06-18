@@ -7,7 +7,6 @@ package br.com.achaeu;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import visual.MenuComposer;
 
 /**
  *
@@ -79,7 +78,6 @@ public class BrComAchaeu extends javax.swing.JFrame {
             public void run() {
                 BrComAchaeu main = new BrComAchaeu();
                 main.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                main.setJMenuBar(MenuComposer.Compose());
                 main.setVisible(true);
             }
         });
