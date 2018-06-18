@@ -1,5 +1,4 @@
 package model;
-
 import java.sql.Timestamp;
 import model.enums.UsuarioNivel;
 
