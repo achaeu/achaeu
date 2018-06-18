@@ -29,7 +29,7 @@ public class CategoriaDAO implements IRepository {
             Categoria categoria = (Categoria) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "INSERT INTO categoria"
+            String sql = "INSERT INTO CATEGORIA"
                     + " (NOME, TAGS, ID_CAT_PAI)"
                     + "VALUES (?,?,?)";
 
@@ -62,7 +62,7 @@ public class CategoriaDAO implements IRepository {
             Categoria categoria = (Categoria) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "UPDATE categoria SET NOME = ?, TAGS = ?, ID_CAT_PAI = ?"
+            String sql = "UPDATE CATEGORIA SET NOME = ?, TAGS = ?, ID_CAT_PAI = ?"
                     + " WHERE ID = ?;";
 
             stmt = conexao.prepareStatement(sql);
@@ -92,7 +92,7 @@ public class CategoriaDAO implements IRepository {
             PreparedStatement stmt = null;
             ResultSet rs = null;
 
-            String sql = "SELECT * FROM categoria WHERE id = " + Integer.toString(id);
+            String sql = "SELECT * FROM CATEGORIA WHERE id = " + Integer.toString(id);
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -121,7 +121,7 @@ public class CategoriaDAO implements IRepository {
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            String sql = "SELECT * FROM categoria";
+            String sql = "SELECT * FROM CATEGORIA";
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -152,7 +152,7 @@ public class CategoriaDAO implements IRepository {
             Categoria categoria = new Categoria();
             categoria = (Categoria) obterUm(id);
 
-            String sql = "DELETE FROM categoria WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM CATEGORIA WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();

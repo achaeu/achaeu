@@ -106,43 +106,43 @@ public class LocalController implements IEntidadeController {
         Local local = (Local) obj;
         List<String> erros = new ArrayList<>();
         
-        if(local.getNome().trim() == ""){
+        if(local.getNome().isEmpty() || local.getNome() == null){
             erros.add("Preencha o nome do local!");
         }
         
-        if(local.getDescricao().trim() == ""){
+        if(local.getDescricao().isEmpty() || local.getDescricao() == null){
             erros.add("Preencha a descrição do local!");
         }
         
-        if(local.getTelefone1().trim() == ""){
+        if(local.getTelefone1().isEmpty() || local.getTelefone1()== null){
             erros.add("Preencha o telefone do local!");
         }
         //Endereço        
-        if(local.getEndereco().getLogradouro().trim() == ""){
+        if(local.getEndereco().getLogradouro().isEmpty() || local.getEndereco().getLogradouro() == null){
             erros.add("Preencha o logradouro do local!");
         }
                 
-        if(local.getEndereco().getNumero().toString().trim() == ""){
+        if(local.getEndereco().getNumero() == null){
             erros.add("Preencha o número do local!");
         }
                         
-        if(local.getEndereco().getBairro().trim() == ""){
+        if(local.getEndereco().getBairro().isEmpty() || local.getEndereco().getBairro() == null){
             erros.add("Preencha o bairro do local!");
         }
                         
-        if(local.getEndereco().getCep().trim() == ""){
+        if(local.getEndereco().getCep().isEmpty() || local.getEndereco().getCep() == null){
             erros.add("Preencha o CEP do local!");
         }
                 
-        if(local.getEndereco().getLogradouro().trim() == ""){
+        if(local.getEndereco().getLogradouro().isEmpty() || local.getEndereco().getLogradouro() == null){
             erros.add("Preencha o logradouro do local!");
         }
                 
-        if(local.getEndereco().getCidade().trim() == ""){
+        if(local.getEndereco().getCidade().isEmpty() || local.getEndereco().getCidade() == null){
             erros.add("Preencha o a cidade do local!");
         }
                 
-        if(local.getEndereco().getUf().trim() == ""){
+        if(local.getEndereco().getUf().isEmpty() || local.getEndereco().getUf() == null){
             erros.add("Preencha o UF do local!");
         }
         

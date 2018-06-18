@@ -28,7 +28,7 @@ public class LocalizacaoDAO implements IRepository{
             Localizacao localizacao = (Localizacao) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "INSERT INTO localizacao"
+            String sql = "INSERT INTO LOCALIZACAO"
                     + " (LATITUDE, LONGITUDE)"
                     + "VALUES (?,?);";
 
@@ -60,7 +60,7 @@ public class LocalizacaoDAO implements IRepository{
             Localizacao localizacao = (Localizacao) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "UPDATE localizacao SET LATITUDE = ?, LONGITUDE = ? "
+            String sql = "UPDATE LOCALIZACAO SET LATITUDE = ?, LONGITUDE = ? "
                     + "WHERE ID = ?;";
 
             stmt = conexao.prepareStatement(sql);
@@ -89,7 +89,7 @@ public class LocalizacaoDAO implements IRepository{
             PreparedStatement stmt = null;
             ResultSet rs = null;
 
-            String sql = "SELECT * FROM localizacao WHERE id=" + Integer.toString(id);
+            String sql = "SELECT * FROM LOCALIZACAO WHERE ID=" + Integer.toString(id);
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -118,7 +118,7 @@ public class LocalizacaoDAO implements IRepository{
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            String sql = "SELECT * FROM localizacao";
+            String sql = "SELECT * FROM LOCALIZACAO";
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -150,7 +150,7 @@ public class LocalizacaoDAO implements IRepository{
             Localizacao localizacao = new Localizacao();
             localizacao = (Localizacao) obterUm(id);
 
-            String sql = "DELETE FROM localizacao WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM LOCALIZACAO WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();
