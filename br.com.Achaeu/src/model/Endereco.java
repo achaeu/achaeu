@@ -91,6 +91,14 @@ public class Endereco extends IEntidade {
         this.idLocalizacao = idLocalizacao;
     }
 
+    public Localizacao getLocalizacao() {
+        return localizacao;
+    }
+
+    public void setLocalizacao(Localizacao localizacao) {
+        this.localizacao = localizacao;
+    }    
+
     @Override
     public String toString() {
         return "Endereco{" + "id=" + super.getId() + ", logradouro=" + logradouro + ", numero=" + numero + ", bairro=" + bairro + ", cep=" + cep + ", cidade=" + cidade + ", uf=" + uf + ", idLocalizacao=" + idLocalizacao + '}';
