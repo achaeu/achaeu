@@ -20,7 +20,7 @@ import model.IEntidade;
  *
  * @author Rodrigo
  */
-public class LocalizacaoDAO implements IRepository {
+public class LocalizacaoDAO implements IRepository{
 
     @Override
     public IEntidade inserir(IEntidade objeto) {
@@ -29,7 +29,7 @@ public class LocalizacaoDAO implements IRepository {
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
             String sql = "INSERT INTO localizacao"
-                    + " (LATITUDE, LONGETUDE)"
+                    + " (LATITUDE, LONGITUDE)"
                     + "VALUES (?,?);";
 
             stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -37,7 +37,7 @@ public class LocalizacaoDAO implements IRepository {
             stmt.setDouble(1, localizacao.getLatitude());
             stmt.setDouble(2, localizacao.getLongitude());
 
-            int numero = stmt.executeUpdate();
+            stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
@@ -56,11 +56,11 @@ public class LocalizacaoDAO implements IRepository {
 
     @Override
     public IEntidade alterar(IEntidade objeto) {
-        try {
+    try {
             Localizacao localizacao = (Localizacao) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "UPDATE localizacao SET LATITUDE = ?, LONGETUDE = ? "
+            String sql = "UPDATE localizacao SET LATITUDE = ?, LONGITUDE = ? "
                     + "WHERE ID = ?;";
 
             stmt = conexao.prepareStatement(sql);
@@ -78,7 +78,7 @@ public class LocalizacaoDAO implements IRepository {
             Logger.getLogger(LocalizacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return null;
+        return null;    
     }
 
     @Override
@@ -96,9 +96,10 @@ public class LocalizacaoDAO implements IRepository {
 
             while (rs.next()) {
                 localizacao = new Localizacao();
-                localizacao.setId(rs.getInt("ID"));
-                localizacao.setLatitude(rs.getDouble("LATITUDE"));
-                localizacao.setLongitude(rs.getDouble("LONGETUDE"));
+                localizacao.setId(rs.getInt(1));
+                localizacao.setLatitude(rs.getDouble(2));
+                localizacao.setLongitude(rs.getDouble(3));
+  
             }
             return localizacao;
 
@@ -112,7 +113,7 @@ public class LocalizacaoDAO implements IRepository {
     public List<IEntidade> obterTodos() {
         try {
             Localizacao localizacao = null;
-            List<IEntidade> localizacoes = new ArrayList<>();
+            List<IEntidade> localizacaos = new ArrayList<>();
 
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
@@ -123,20 +124,22 @@ public class LocalizacaoDAO implements IRepository {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                localizacao.setId(rs.getInt("ID"));
-                localizacao.setLatitude(rs.getDouble("LATITUDE"));
-                localizacao.setLongitude(rs.getDouble("LONGETUDE"));
-                
+                localizacao = new Localizacao();
+                localizacao.setId(rs.getInt(1));
+                localizacao.setLatitude(rs.getDouble(2));
+                localizacao.setLongitude(rs.getDouble(3));
+  
                 // Adicionar a lista
-                localizacoes.add(localizacao);
+                localizacaos.add(localizacao);
             }
 
-            return localizacoes;
+            return localizacaos;
 
         } catch (SQLException ex) {
             Logger.getLogger(LocalizacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }}
+        }
+    }
 
     @Override
     public IEntidade remover(Integer id) {
@@ -159,5 +162,5 @@ public class LocalizacaoDAO implements IRepository {
             return null;
         }
     }
-
+    
 }
