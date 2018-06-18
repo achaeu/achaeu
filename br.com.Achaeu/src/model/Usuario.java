@@ -1,12 +1,13 @@
 package model;
 
 import java.security.Timestamp;
+import model.enums.UsuarioNivel;
 
 public class Usuario extends IEntidade{
     private String nome;
     private String email;
     private String senha;
-    private int nivel;
+    private UsuarioNivel nivel;
     private Timestamp dataCriacao;
     private Timestamp dataAlteracao;
 
@@ -18,7 +19,7 @@ public class Usuario extends IEntidade{
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.nivel = nivel;
+        this.nivel = UsuarioNivel.values()[nivel];
         this.dataCriacao = dataCriacao;
         this.dataAlteracao = dataAlteracao;
     }
@@ -47,12 +48,12 @@ public class Usuario extends IEntidade{
         this.senha = senha;
     }
 
-    public int getNivel() {
+    public UsuarioNivel getNivel() {
         return nivel;
     }
 
     public void setNivel(int nivel) {
-        this.nivel = nivel;
+        this.nivel = UsuarioNivel.values()[nivel];
     }
 
     public Timestamp getDataCriacao() {
