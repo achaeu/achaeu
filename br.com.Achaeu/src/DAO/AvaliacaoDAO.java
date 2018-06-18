@@ -165,7 +165,7 @@ public class AvaliacaoDAO implements IRepository {
             Avaliacao avaliacao = new Avaliacao();
             avaliacao = (Avaliacao) obterUm(id);
 
-            String sql = "DELETE avaliacao WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM avaliacao WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();

@@ -149,7 +149,7 @@ public class FotoDAO implements IRepository{
             Foto foto = new Foto();
             foto = (Foto) obterUm(id);
 
-            String sql = "DELETE foto WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM foto WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();

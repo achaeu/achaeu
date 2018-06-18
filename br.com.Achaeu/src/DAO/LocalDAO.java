@@ -169,7 +169,7 @@ public class LocalDAO implements IRepository{
             Local local = new Local();
             local = (Local) obterUm(id);
 
-            String sql = "DELETE local WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM local WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();

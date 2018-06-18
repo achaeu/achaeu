@@ -164,7 +164,7 @@ public class HorarioLocalDAO implements IRepository{
             HorarioLocal horarioLocal = new HorarioLocal();
             horarioLocal = (HorarioLocal) obterUm(id);
 
-            String sql = "DELETE horarioLocal WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM horarioLocal WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();

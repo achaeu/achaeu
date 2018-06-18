@@ -152,7 +152,7 @@ public class CategoriaDAO implements IRepository {
             Categoria categoria = new Categoria();
             categoria = (Categoria) obterUm(id);
 
-            String sql = "DELETE categoria WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM categoria WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();

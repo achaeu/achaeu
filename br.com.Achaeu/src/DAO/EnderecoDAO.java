@@ -167,7 +167,7 @@ public class EnderecoDAO implements IRepository {
             Endereco endereco = new Endereco();
             endereco = (Endereco) obterUm(id);
 
-            String sql = "DELETE endereco WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM endereco WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();

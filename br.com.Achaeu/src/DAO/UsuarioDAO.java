@@ -161,7 +161,7 @@ public class UsuarioDAO implements IRepository {
             Usuario usuario = new Usuario();
             usuario = (Usuario) obterUm(id);
 
-            String sql = "DELETE usuario WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM usuario WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();
