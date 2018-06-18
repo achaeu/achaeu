@@ -28,7 +28,7 @@ public class AvaliacaoDAO implements IRepository {
             Avaliacao avaliacao = (Avaliacao) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "INSERT INTO avaliacao"
+            String sql = "INSERT INTO AVALIACAO"
                     + " (CONTEUDO, ID_USUARIO, NOTA, ID_LOCAL, DATA_CRIACAO, DATA_ALTERACAO)"
                     + "VALUES (?,?,?,?,?,?);";
 
@@ -64,7 +64,7 @@ public class AvaliacaoDAO implements IRepository {
             Avaliacao avaliacao = (Avaliacao) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "UPDATE avaliacao SET CONTEUDO = ?, ID_USUARIO = ?, NOTA = ?, ID_LOCAL = ?,"
+            String sql = "UPDATE AVALIACAO SET CONTEUDO = ?, ID_USUARIO = ?, NOTA = ?, ID_LOCAL = ?,"
                     + "DATA_CRIACAO = ?, DATA_ALTERACAO = ? WHERE ID = ?;";
 
             stmt = conexao.prepareStatement(sql);
@@ -97,7 +97,7 @@ public class AvaliacaoDAO implements IRepository {
             PreparedStatement stmt = null;
             ResultSet rs = null;
 
-            String sql = "SELECT * FROM avaliacao WHERE id=" + Integer.toString(id);
+            String sql = "SELECT * FROM AVALIACAO WHERE ID=" + Integer.toString(id);
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -130,7 +130,7 @@ public class AvaliacaoDAO implements IRepository {
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            String sql = "SELECT * FROM avaliacao";
+            String sql = "SELECT * FROM AVALIACAO";
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -165,7 +165,7 @@ public class AvaliacaoDAO implements IRepository {
             Avaliacao avaliacao = new Avaliacao();
             avaliacao = (Avaliacao) obterUm(id);
 
-            String sql = "DELETE avaliacao WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM AVALIACAO WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();

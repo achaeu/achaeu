@@ -23,5 +23,6 @@ public interface IEntidadeController {
     public IEntidade obterUm(int id);
     public List<IEntidade> obterTodos();
     public IEntidade salvar(IEntidade obj);
+    public Boolean validarModel(IEntidade obj);
     public IEntidade remover();
 }

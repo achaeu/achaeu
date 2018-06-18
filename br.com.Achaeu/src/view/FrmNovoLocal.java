@@ -5,11 +5,19 @@
  */
 package view;
 
+import controller.IEntidadeController;
+import controller.LocalController;
+import model.Endereco;
+import model.Local;
+import model.Localizacao;
+
 /**
  *
  * @author igor-bueno
  */
 public class FrmNovoLocal extends javax.swing.JFrame {
+
+    IEntidadeController controller = new LocalController();
 
     /**
      * Creates new form FrmNovoLocal
@@ -55,8 +63,8 @@ public class FrmNovoLocal extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        txtTelefone3 = new javax.swing.JTextField();
-        txtTelefone4 = new javax.swing.JTextField();
+        txtLatitude = new javax.swing.JTextField();
+        txtLongitude = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -154,22 +162,23 @@ public class FrmNovoLocal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel12)
                 .addGap(6, 6, 6)
-                .addComponent(txtTelefone3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtLatitude, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(txtTelefone4, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(txtTelefone3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13)
-                        .addComponent(txtTelefone4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(txtLatitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
@@ -229,6 +238,11 @@ public class FrmNovoLocal extends javax.swing.JFrame {
         );
 
         jButton1.setText("Salvar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -259,7 +273,7 @@ public class FrmNovoLocal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -286,6 +300,35 @@ public class FrmNovoLocal extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Local local = new Local();
+        Endereco endereco = new Endereco();
+        Localizacao localizacao = new Localizacao();
+
+        local.setNome(txtNome.getText());
+        local.setDescricao(txtDescricao.getText());
+        local.setTelefone1(txtTelefone1.getText());
+        local.setTelefone2(txtTelefone2.getText());
+        endereco.setLogradouro(txtLogradouro.getText());
+        if (!txtNumero.getText().isEmpty()) {
+            endereco.setNumero(Integer.parseInt(txtNumero.getText()));
+        }
+        endereco.setBairro(txtBairro.getText());
+        endereco.setCep(txtCEP.getText());
+        endereco.setCidade(txtCidade.getText());
+        endereco.setUf(txtUF.getText());
+        if (!txtLatitude.getText().isEmpty()) {
+            localizacao.setLatitude(Double.parseDouble(txtLatitude.getText()));
+        }
+        if (!txtLongitude.getText().isEmpty()) {
+            localizacao.setLongitude(Double.parseDouble(txtLongitude.getText()));
+        }
+
+        endereco.setLocalizacao(localizacao);
+        local.setEndereco(endereco);
+        controller.salvar(local);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,13 +391,13 @@ public class FrmNovoLocal extends javax.swing.JFrame {
     private javax.swing.JTextField txtCEP;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextArea txtDescricao;
+    private javax.swing.JTextField txtLatitude;
     private javax.swing.JTextField txtLogradouro;
+    private javax.swing.JTextField txtLongitude;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtTelefone1;
     private javax.swing.JTextField txtTelefone2;
-    private javax.swing.JTextField txtTelefone3;
-    private javax.swing.JTextField txtTelefone4;
     private javax.swing.JTextField txtUF;
     // End of variables declaration//GEN-END:variables
 }

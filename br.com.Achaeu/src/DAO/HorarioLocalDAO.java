@@ -27,7 +27,7 @@ public class HorarioLocalDAO implements IRepository{
             HorarioLocal horarioLocal = (HorarioLocal) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "INSERT INTO horarioLocal"
+            String sql = "INSERT INTO HORARIO_LOCAL"
                     + " (ENTRADA1, SAIDA1, ENTRADA2, SAIDA2, FUNCIONAMENTO, DIASEMANA)"
                     + "VALUES (?,?,?,?,?,?);";
 
@@ -63,7 +63,7 @@ public class HorarioLocalDAO implements IRepository{
             HorarioLocal horarioLocal = (HorarioLocal) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "UPDATE horarioLocal SET ENTRADA1 = ?, SAIDA1 = ?, ENTRADA2 = ?, SAIDA2 = ?,"
+            String sql = "UPDATE HORARIO_LOCAL SET ENTRADA1 = ?, SAIDA1 = ?, ENTRADA2 = ?, SAIDA2 = ?,"
                     + " FUNCIONAMENTO = ?, DIA_SEMANA = ? WHERE ID = ?";
             
             stmt = conexao.prepareStatement(sql);
@@ -96,7 +96,7 @@ public class HorarioLocalDAO implements IRepository{
             PreparedStatement stmt = null;
             ResultSet rs = null;
 
-            String sql = "SELECT * FROM horarioLocal WHERE id=" + Integer.toString(id);
+            String sql = "SELECT * FROM HORARIO_LOCAL WHERE id=" + Integer.toString(id);
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -129,7 +129,7 @@ public class HorarioLocalDAO implements IRepository{
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            String sql = "SELECT * FROM horarioLocal";
+            String sql = "SELECT * FROM HORARIO_LOCAL";
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -164,7 +164,7 @@ public class HorarioLocalDAO implements IRepository{
             HorarioLocal horarioLocal = new HorarioLocal();
             horarioLocal = (HorarioLocal) obterUm(id);
 
-            String sql = "DELETE horarioLocal WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM HORARIO_LOCAL WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();

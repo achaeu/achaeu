@@ -28,7 +28,7 @@ public class EnderecoDAO implements IRepository {
             Endereco endereco = (Endereco) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "INSERT INTO endereco"
+            String sql = "INSERT INTO ENDERECO"
                     + " (LOGRADOURO,NUMERO,BAIRRO,CEP,CIDADE,UF,ID_LOCALIZACAO)"
                     + "VALUES (?,?,?,?,?,?,?);";
 
@@ -65,7 +65,7 @@ public class EnderecoDAO implements IRepository {
             Endereco endereco = (Endereco) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "UPDATE endereco SET LOGRADOURO = ?, NUMERO = ?, BAIRRO = ?, CEP = ?,"
+            String sql = "UPDATE ENDERECO SET LOGRADOURO = ?, NUMERO = ?, BAIRRO = ?, CEP = ?,"
                     + "CIDADE = ?, UF = ?, ID_LOCALIZACAO = ? WHERE ID = ?;";
 
             stmt = conexao.prepareStatement(sql);
@@ -99,7 +99,7 @@ public class EnderecoDAO implements IRepository {
             PreparedStatement stmt = null;
             ResultSet rs = null;
 
-            String sql = "SELECT * FROM endereco WHERE id=" + Integer.toString(id);
+            String sql = "SELECT * FROM ENDERECO WHERE id=" + Integer.toString(id);
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -132,7 +132,7 @@ public class EnderecoDAO implements IRepository {
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            String sql = "SELECT * FROM endereco";
+            String sql = "SELECT * FROM ENDERECO";
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -167,7 +167,7 @@ public class EnderecoDAO implements IRepository {
             Endereco endereco = new Endereco();
             endereco = (Endereco) obterUm(id);
 
-            String sql = "DELETE endereco WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM ENDERECO WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();
