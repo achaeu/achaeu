@@ -150,7 +150,7 @@ public class LocalizacaoDAO implements IRepository{
             Localizacao localizacao = new Localizacao();
             localizacao = (Localizacao) obterUm(id);
 
-            String sql = "DELETE localizacao WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM localizacao WHERE ID = " + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();
