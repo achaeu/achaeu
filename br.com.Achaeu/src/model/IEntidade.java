@@ -17,6 +17,7 @@ public abstract class IEntidade {
     }    
 
     public IEntidade() {
+        this.id = 0;
     }
     
 

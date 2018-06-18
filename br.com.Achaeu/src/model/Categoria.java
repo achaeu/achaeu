@@ -13,16 +13,18 @@ public class Categoria extends IEntidade{
     private String nome;
     private String tags;
     private Integer idCatPai;
+    private Categoria categoriaPai;
 
     public Categoria() {
         super();
     }
 
-    public Categoria(Integer id, String nome, String tags, Integer idCatPai) {
+    public Categoria(String nome, String tags, Integer idCatPai, Categoria categoriaPai, Integer id) {
         super(id);
         this.nome = nome;
         this.tags = tags;
         this.idCatPai = idCatPai;
+        this.categoriaPai = categoriaPai;
     }
 
     public String getNome() {
@@ -49,8 +51,18 @@ public class Categoria extends IEntidade{
         this.idCatPai = idCatPai;
     }
 
+    public Categoria getCategoriaPai() {
+        return categoriaPai;
+    }
+
+    public void setCategoriaPai(Categoria categoriaPai) {
+        this.categoriaPai = categoriaPai;
+    }
+
     @Override
     public String toString() {
-        return "Categoria{" + "id=" + super.getId() + ", nome=" + nome + ", tags=" + tags + ", idCatPai=" + idCatPai + '}';
-    }       
+        return "Categoria{" + "nome=" + nome + ", tags=" + tags + ", idCatPai=" + idCatPai + ", categoriaPai=" + categoriaPai + '}';
+    }
+    
+
 }
