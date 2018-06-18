@@ -22,6 +22,13 @@ public class Localizacao extends IEntidade{
         this.latitude = latitude;
         this.longitude = longitude;
     }
+    
+    
+    public Localizacao(Double latitude, Double longitude) {
+        super(0);
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     public Double getLatitude() {
         return latitude;
