@@ -1,6 +1,6 @@
 package model;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import model.enums.UsuarioNivel;
 
 public class Usuario extends IEntidade{

@@ -5,6 +5,10 @@
  */
 package br.com.achaeu;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import visual.MenuComposer;
+
 /**
  *
  * @author jonathan
@@ -37,7 +41,7 @@ public class BrComAchaeu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 315, Short.MAX_VALUE)
         );
 
         pack();
@@ -73,7 +77,10 @@ public class BrComAchaeu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BrComAchaeu().setVisible(true);
+                BrComAchaeu main = new BrComAchaeu();
+                main.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                main.setJMenuBar(MenuComposer.Compose());
+                main.setVisible(true);
             }
         });
     }
