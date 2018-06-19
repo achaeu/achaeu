@@ -6,6 +6,7 @@
 package view;
 
 import controller.CategoriaController;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Categoria;
@@ -19,7 +20,7 @@ public class FrmCategoria extends javax.swing.JDialog {
 
     CategoriaController controller = new CategoriaController();
     private Categoria categoria = new Categoria();
-    
+
     public FrmCategoria(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -181,12 +182,12 @@ public class FrmCategoria extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Categoria categoria = new Categoria();
         String idCatPai = (String) txtCategoriaPai.getSelectedItem().toString().split(" ")[0];
-        
+
         categoria.setNome(txtNome.getText());
         categoria.setTags(txtTags.getText());
         categoria.setIdCatPai(Integer.parseInt(idCatPai));
-        
-        controller.salvar(categoria);        
+
+        controller.salvar(categoria);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -230,17 +231,30 @@ public class FrmCategoria extends javax.swing.JDialog {
             }
         });
     }
-    
-        public void carregarCategorias(){
-        List<IEntidade> locais =  controller.obterTodos();
+
+    public void carregarCategorias() {
+        List<IEntidade> locais = controller.obterTodos();
         DefaultTableModel dtm = (DefaultTableModel) tbCategorias.getModel();
         dtm.setNumRows(0);
-        if(locais.size() == 0){
+        if (locais.size() == 0) {
             return;
         }
         for (IEntidade obj : locais) {
             Categoria categoria = (Categoria) obj;
             dtm.addRow(new Object[]{categoria.getId(), categoria.getNome(), categoria.getCategoriaPai().getId(), categoria.getCategoriaPai().getNome()});
+        }
+    }
+
+    public void carregarComboCategorias() {
+        List<IEntidade> locais = controller.obterTodos();
+        ArrayList<String> items = new ArrayList();
+        if (locais.size() == 0) {
+            return;
+        }
+        
+        for (IEntidade obj : locais) {
+            Categoria categoria = (Categoria) obj;
+            items.add(categoria.getId().toString()+" "+"-"+" "+categoria.getNome());
         }
     }
 

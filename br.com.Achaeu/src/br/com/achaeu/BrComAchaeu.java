@@ -435,6 +435,7 @@ public class BrComAchaeu extends javax.swing.JFrame {
             dtm.addRow(new Object[]{local.getId(), local.getNome(), local.getTelefone1()});
         }
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton jButton1;
