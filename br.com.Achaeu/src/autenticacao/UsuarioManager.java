@@ -70,7 +70,7 @@ public class UsuarioManager {
         prefs.remove(LOGGED_USER);
     }
 
-    private static int getUsuarioLogadoId() throws Exception {
+    public static int getUsuarioLogadoId() throws Exception {
         Preferences prefs = Preferences.userNodeForPackage(br.com.achaeu.BrComAchaeu.class);
 
         int usuarioLogado = prefs.getInt(LOGGED_USER, 0);
@@ -127,7 +127,7 @@ public class UsuarioManager {
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
             stmt.setString(3, usuario.getSenha());
-            stmt.setInt(4, usuario.getNivel().ordinal());
+            stmt.setInt(4, UsuarioNivel.USUARIO_COMUM.ordinal());
 
             int numero = stmt.executeUpdate();
 
@@ -163,7 +163,7 @@ public class UsuarioManager {
             stmt = conexao.prepareStatement(sql);
 
             stmt.setString(1, usuarioAlterado.getNome());
-            stmt.setString(2, usuarioAlterado.getSenha() != null ? usuarioAlterado.getSenha() : senhaAtual);
+            stmt.setString(2, usuarioAlterado.getSenha().isEmpty() ? senhaAtual : usuarioAlterado.getSenha());
             stmt.setInt(3, usuarioAtual.getId());
             stmt.setString(4, senhaAtual);
 

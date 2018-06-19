@@ -9,18 +9,19 @@ import autenticacao.UsuarioManager;
 import controller.IEntidadeController;
 import controller.LocalController;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.IEntidade;
 import model.Local;
 import java.awt.Window;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Usuario;
 import view.FrmLogon;
+import view.FrmNovoUsuario;
 import view.FrmUsuario;
 
 /**
@@ -28,7 +29,9 @@ import view.FrmUsuario;
  * @author jonathan
  */
 public class BrComAchaeu extends javax.swing.JFrame {
+
     private IEntidadeController controller = new LocalController();
+
     /**
      * Creates new form BrComAchaeu
      */
@@ -54,6 +57,7 @@ public class BrComAchaeu extends javax.swing.JFrame {
         mnuUsuario = new javax.swing.JMenu();
         mnuLogon = new javax.swing.JMenuItem();
         mnuAlterar = new javax.swing.JMenuItem();
+        mnuCriarNovaConta = new javax.swing.JMenuItem();
         mnuUsuarioSpr1 = new javax.swing.JPopupMenu.Separator();
         mnuLogoff = new javax.swing.JMenuItem();
 
@@ -139,6 +143,14 @@ public class BrComAchaeu extends javax.swing.JFrame {
             }
         });
         mnuUsuario.add(mnuAlterar);
+
+        mnuCriarNovaConta.setText("Criar nova conta...");
+        mnuCriarNovaConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCriarNovaContaActionPerformed(evt);
+            }
+        });
+        mnuUsuario.add(mnuCriarNovaConta);
         mnuUsuario.add(mnuUsuarioSpr1);
 
         mnuLogoff.setText("Logoff");
@@ -167,13 +179,12 @@ public class BrComAchaeu extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGap(0, 436, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void definirVisibilidadeDosItensDeMenu() {
+    public void definirVisibilidadeDosItensDeMenu() {
         boolean visivel = UsuarioManager.isUserLogged();
 
         if (visivel) {
@@ -187,14 +198,15 @@ public class BrComAchaeu extends javax.swing.JFrame {
             mnuUsuario.setText("Usuário");
         }
         mnuLogon.setVisible(!visivel);
+        mnuCriarNovaConta.setVisible(!visivel);
         mnuAlterar.setVisible(visivel);
         mnuUsuarioSpr1.setVisible(visivel);
         mnuLogoff.setVisible(visivel);
     }
-    
-    private void fecharTodosOsDialogos(){
+
+    public void fecharTodosOsDialogos() {
         Window[] diags = this.getOwnedWindows();
-        for(Window w: diags){
+        for (Window w : diags) {
             w.dispose();
         }
     }
@@ -234,10 +246,13 @@ public class BrComAchaeu extends javax.swing.JFrame {
         FrmUsuario frmUsuario = new FrmUsuario(this, false);
         frmUsuario.setLocationRelativeTo(null);
         frmUsuario.setVisible(true);
-        if(frmUsuario.isSuccess()){
-            this.definirVisibilidadeDosItensDeMenu();
-        }
     }//GEN-LAST:event_mnuAlterarActionPerformed
+
+    private void mnuCriarNovaContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCriarNovaContaActionPerformed
+        FrmNovoUsuario frmUsuario = new FrmNovoUsuario(this, false);
+        frmUsuario.setLocationRelativeTo(null);
+        frmUsuario.setVisible(true);
+    }//GEN-LAST:event_mnuCriarNovaContaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,12 +291,12 @@ public class BrComAchaeu extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void carregarLocais(){
-        List<IEntidade> locais =  controller.obterTodos();
+
+    public void carregarLocais() {
+        List<IEntidade> locais = controller.obterTodos();
         DefaultTableModel dtm = (DefaultTableModel) tbLocais.getModel();
         dtm.setNumRows(0);
-        
+
         for (IEntidade obj : locais) {
             Local local = (Local) obj;
             dtm.addRow(new Object[]{local.getId(), local.getNome(), local.getTelefone1()});
@@ -292,11 +307,12 @@ public class BrComAchaeu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem mnuAlterar;
+    private javax.swing.JMenuItem mnuCriarNovaConta;
     private javax.swing.JMenuItem mnuLogoff;
     private javax.swing.JMenuItem mnuLogon;
     private javax.swing.JMenuBar mnuMain;
     private javax.swing.JMenu mnuUsuario;
+    private javax.swing.JPopupMenu.Separator mnuUsuarioSpr1;
     private javax.swing.JTable tbLocais;
-    private javax.swing.JSeparator mnuUsuarioSpr1;
     // End of variables declaration//GEN-END:variables
 }
