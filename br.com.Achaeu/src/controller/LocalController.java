@@ -41,7 +41,7 @@ public class LocalController implements IEntidadeController {
 
     @Override
     public List<IEntidade> obterTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new LocalDAO().obterTodos();
     }
 
     /**
