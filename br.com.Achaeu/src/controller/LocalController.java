@@ -10,8 +10,11 @@ import DAO.ConnectionManager;
 import DAO.EnderecoDAO;
 import DAO.LocalDAO;
 import DAO.LocalizacaoDAO;
+import autenticacao.UsuarioManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Categoria;
 import model.Endereco;
@@ -32,6 +35,8 @@ public class LocalController implements IEntidadeController {
             Local local = (Local) dao.obterUm(id);
             local.setCategoria((Categoria) new CategoriaDAO().obterUm(local.getIdCategoria()));
             local.setEndereco((Endereco) new EnderecoDAO().obterUm(local.getIdEndereco()));
+            local.setIdEndereco(local.getEndereco().getId());
+            local.setIdCategoria(local.getCategoria().getId());
             return local;
         } catch (Exception e) {
             throw e;
@@ -41,56 +46,43 @@ public class LocalController implements IEntidadeController {
 
     @Override
     public List<IEntidade> obterTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new LocalDAO().obterTodos();
     }
 
     /**
      * Salva um local
+     *
      * @param obj
      * @return
      */
     @Override
     public IEntidade salvar(IEntidade obj) {
-        Local local = (Local) obj;
-        if(!this.validarModel(local)){
-            return null;
-        }
-        Localizacao localizacao = local.getEndereco().getLocalizacao();
-        Endereco endereco = local.getEndereco();
         IEntidade retorno = null;
+        try {
+            Local local = (Local) obj;
+            if (!this.validarModel(local)) {
+                return null;
+            }
+            Localizacao localizacao = local.getEndereco().getLocalizacao();
+            Endereco endereco = local.getEndereco();
 
-        if (local.getId() == 0) {
-            if (!(localizacao.getLatitude() == null) || !(localizacao.getLongitude() == null)) {
-                if (localizacao.getId() == 0) {
-                    localizacao = (Localizacao) new LocalizacaoDAO().inserir(localizacao);
-                } else {
-                    localizacao = (Localizacao) new LocalizacaoDAO().alterar(localizacao);
-                }
-                endereco.setIdLocalizacao(localizacao.getId());
-                local.setEndereco(endereco);
+            if (local.getId() == 0 || local.getId() == null) {
+                endereco = (Endereco) new EnderecoDAO().inserir(local.getEndereco());
+                //Preenchendo os ID's
+                local.setIdEndereco(endereco.getId());
+                local.setIdUsuario(UsuarioManager.getUsuarioLogadoId());
+                local.setIdCategoria(1);
+                retorno = new LocalDAO().inserir(local);
+            } else {
+                endereco = (Endereco) new EnderecoDAO().alterar(local.getEndereco());
+                //Preenchendo os ID's
+                local.setIdEndereco(endereco.getId());
+                local.setIdUsuario(UsuarioManager.getUsuarioLogadoId());
+                local.setIdCategoria(1);
+                retorno = new LocalDAO().alterar(local);
             }
-            endereco = (Endereco) new EnderecoDAO().inserir(local.getEndereco());
-            //Preenchendo os ID's
-            local.setIdEndereco(endereco.getId());
-            local.setIdUsuario(1);
-            local.setIdCategoria(1);
-            retorno = new LocalDAO().inserir(local);
-        } else {
-            if (!(localizacao.getLatitude() == null) || !(localizacao.getLongitude() == null)) {
-                if (localizacao.getId() == 0) {
-                    localizacao = (Localizacao) new LocalizacaoDAO().inserir(localizacao);
-                } else {
-                    localizacao = (Localizacao) new LocalizacaoDAO().alterar(localizacao);
-                }
-                endereco.setIdLocalizacao(localizacao.getId());
-                local.setEndereco(endereco);
-            }
-            endereco = (Endereco) new EnderecoDAO().alterar(local.getEndereco());
-            //Preenchendo os ID's
-            local.setIdEndereco(endereco.getId());
-            local.setIdUsuario(1);
-            local.setIdCategoria(1);
-            retorno = new LocalDAO().alterar(local);
+        } catch (Exception e) {
+            Logger.getLogger(LocalController.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return retorno;
@@ -101,61 +93,64 @@ public class LocalController implements IEntidadeController {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public Boolean validarModel(IEntidade obj) {
         Local local = (Local) obj;
         List<String> erros = new ArrayList<>();
-        
-        if(local.getNome().isEmpty() || local.getNome() == null){
+
+        if (local.getNome().isEmpty() || local.getNome() == null) {
             erros.add("Preencha o nome do local!");
         }
-        
-        if(local.getDescricao().isEmpty() || local.getDescricao() == null){
+
+        if (local.getDescricao().isEmpty() || local.getDescricao() == null) {
             erros.add("Preencha a descrição do local!");
         }
-        
-        if(local.getTelefone1().isEmpty() || local.getTelefone1()== null){
+
+        if (local.getTelefone1().isEmpty() || local.getTelefone1() == null) {
             erros.add("Preencha o telefone do local!");
         }
         //Endereço        
-        if(local.getEndereco().getLogradouro().isEmpty() || local.getEndereco().getLogradouro() == null){
+        if (local.getEndereco().getLogradouro().isEmpty() || local.getEndereco().getLogradouro() == null) {
             erros.add("Preencha o logradouro do local!");
         }
-                
-        if(local.getEndereco().getNumero() == null){
+
+        if (local.getEndereco().getNumero() == null) {
             erros.add("Preencha o número do local!");
         }
-                        
-        if(local.getEndereco().getBairro().isEmpty() || local.getEndereco().getBairro() == null){
+
+        if (local.getEndereco().getBairro().isEmpty() || local.getEndereco().getBairro() == null) {
             erros.add("Preencha o bairro do local!");
         }
-                        
-        if(local.getEndereco().getCep().isEmpty() || local.getEndereco().getCep() == null){
+
+        if (local.getEndereco().getCep().isEmpty() || local.getEndereco().getCep() == null) {
             erros.add("Preencha o CEP do local!");
         }
-                
-        if(local.getEndereco().getLogradouro().isEmpty() || local.getEndereco().getLogradouro() == null){
+
+        if (local.getEndereco().getLogradouro().isEmpty() || local.getEndereco().getLogradouro() == null) {
             erros.add("Preencha o logradouro do local!");
         }
-                
-        if(local.getEndereco().getCidade().isEmpty() || local.getEndereco().getCidade() == null){
+
+        if (local.getEndereco().getCidade().isEmpty() || local.getEndereco().getCidade() == null) {
             erros.add("Preencha o a cidade do local!");
         }
-                
-        if(local.getEndereco().getUf().isEmpty() || local.getEndereco().getUf() == null){
+
+        if (local.getEndereco().getUf().isEmpty() || local.getEndereco().getUf() == null) {
             erros.add("Preencha o UF do local!");
         }
-        
-        if(erros.size() > 0){
-            String mensagem = "Foram encontrados os seguintes erros:"+System.lineSeparator();
+
+        if (erros.size() > 0) {
+            String mensagem = "Foram encontrados os seguintes erros:" + System.lineSeparator();
             for (String erro : erros) {
                 mensagem += erro + System.lineSeparator();
             }
             JOptionPane.showMessageDialog(null, mensagem);
             return false;
         }
-        
+
         return true;
+    }
+
+    public List<IEntidade> consultarLocal(String textoConsulta) {
+        return new LocalDAO().consultarLocal(textoConsulta);
     }
 
 }

@@ -50,6 +50,10 @@ public class Localizacao extends IEntidade{
     public String toString() {
         return "Localizacao{"+ "id=" + super.getId() + "latitude=" + latitude + ", longitude=" + longitude + '}';
     }
+
+    public void setLatitude(float f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }
