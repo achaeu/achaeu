@@ -56,8 +56,6 @@ public class FrmCategoria extends javax.swing.JDialog {
 
         jLabel2.setText("Categoria pai:");
 
-        txtCategoriaPai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jButton1.setText("Salvar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,14 +245,13 @@ public class FrmCategoria extends javax.swing.JDialog {
 
     public void carregarComboCategorias() {
         List<IEntidade> locais = controller.obterTodos();
-        ArrayList<String> items = new ArrayList();
         if (locais.size() == 0) {
             return;
         }
         
         for (IEntidade obj : locais) {
             Categoria categoria = (Categoria) obj;
-            items.add(categoria.getId().toString()+" "+"-"+" "+categoria.getNome());
+            txtCategoriaPai.addItem(categoria.getId().toString()+" "+"-"+" "+categoria.getNome());
         }
     }
 
