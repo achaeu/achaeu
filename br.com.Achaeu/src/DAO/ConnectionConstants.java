@@ -11,7 +11,7 @@ package DAO;
  */
 public class ConnectionConstants {
     //A partir daqui, cada um pode personalizar os valores de conexão
-    public static final String url = "jdbc:mysql://localhost:3306/ACHA_EU";
+    public static final String url = "jdbc:mysql://192.168.1.120:3306/ACHA_EU?useTimezone=true&serverTimezone=UTC";
     public static final String user = "root";
     public static final String password = "root";
 }
