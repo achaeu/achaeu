@@ -103,6 +103,7 @@ public class CategoriaDAO implements IRepository {
                 categoria.setNome(rs.getString("NOME"));
                 categoria.setTags(rs.getString("TAGS"));
                 categoria.setIdCatPai(rs.getInt("ID_CAT_PAI"));
+                categoria.setCategoriaPai((Categoria) this.obterUm(categoria.getIdCatPai()));
             }
             return categoria;
 
