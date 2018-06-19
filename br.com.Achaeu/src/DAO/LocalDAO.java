@@ -107,13 +107,14 @@ public class LocalDAO implements IRepository{
                 local = new Local();
                 local.setId(rs.getInt(1));
                 local.setNome(rs.getString(2));
-                local.setDataCriacao(rs.getTimestamp(3));
-                local.setDataAlteracao(rs.getTimestamp(4));
-                local.setIdUsuario(rs.getInt(5));
-                local.setIdEndereco(rs.getInt(6));
-                local.setTelefone1(rs.getString(7));
-                local.setTelefone2(rs.getString(8));
-                local.setIdCategoria(rs.getInt(9));
+                local.setDescricao(rs.getString(3));
+                local.setDataCriacao(rs.getTimestamp(4));
+                local.setDataAlteracao(rs.getTimestamp(5));
+                local.setIdUsuario(rs.getInt(6));
+                local.setIdEndereco(rs.getInt(7));
+                local.setTelefone1(rs.getString(8));
+                local.setTelefone2(rs.getString(9));
+                local.setIdCategoria(rs.getInt(10));
             }
             return local;
 
@@ -141,13 +142,14 @@ public class LocalDAO implements IRepository{
                 local = new Local();
                 local.setId(rs.getInt(1));
                 local.setNome(rs.getString(2));
-                local.setDataCriacao(rs.getTimestamp(3));
-                local.setDataAlteracao(rs.getTimestamp(4));
-                local.setIdUsuario(rs.getInt(5));
-                local.setIdEndereco(rs.getInt(6));
-                local.setTelefone1(rs.getString(7));
-                local.setTelefone2(rs.getString(8));
-                local.setIdCategoria(rs.getInt(9));
+                local.setDescricao(rs.getString(3));
+                local.setDataCriacao(rs.getTimestamp(4));
+                local.setDataAlteracao(rs.getTimestamp(5));
+                local.setIdUsuario(rs.getInt(6));
+                local.setIdEndereco(rs.getInt(7));
+                local.setTelefone1(rs.getString(8));
+                local.setTelefone2(rs.getString(9));
+                local.setIdCategoria(rs.getInt(10));
                 // Adicionar a lista
                 locals.add(local);
             }
