@@ -62,23 +62,25 @@ public class AvaliacaoDAOIT {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void ObterTodos(){
       
         Avaliacao l1 = new Avaliacao();
         AvaliacaoDAO da1 = new AvaliacaoDAO();
         List<IEntidade> avaliacoes = new ArrayList<>();
         
-        avaliacoes = da1.obterTodos();
+        avaliacoes = da1.obterTodos(3);
         
-        for(IEntidade avals : avaliacoes){
-            System.out.println(avals.getId()+" ");
+        for(IEntidade obj : avaliacoes){
+            Avaliacao avals = (Avaliacao) obj;
+            
+            System.out.println(avals.getId()+" "+ avals.getConteudo());
         }
         
     }
     
     @Test
-    //@Ignore
+    @Ignore
     public void remover(){
         AvaliacaoDAO dao1 = new AvaliacaoDAO();
         dao1.remover(4);
