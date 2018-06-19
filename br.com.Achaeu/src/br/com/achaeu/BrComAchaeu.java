@@ -33,9 +33,8 @@ import view.FrmUsuario;
  */
 public class BrComAchaeu extends javax.swing.JFrame {
 
-    private IEntidadeController controller = new LocalController();
-
     private LocalController controller = new LocalController();
+
     /**
      * Creates new form BrComAchaeu
      */
@@ -60,14 +59,14 @@ public class BrComAchaeu extends javax.swing.JFrame {
         txtConsulta = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         mnuMain = new javax.swing.JMenuBar();
+        mnuLocais = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         mnuUsuario = new javax.swing.JMenu();
         mnuLogon = new javax.swing.JMenuItem();
         mnuAlterar = new javax.swing.JMenuItem();
         mnuCriarNovaConta = new javax.swing.JMenuItem();
         mnuUsuarioSpr1 = new javax.swing.JPopupMenu.Separator();
         mnuLogoff = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("AchaEu!");
@@ -156,6 +155,18 @@ public class BrComAchaeu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        mnuLocais.setText("Locais");
+
+        jMenuItem1.setText("Novo local");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnuLocais.add(jMenuItem1);
+
+        mnuMain.add(mnuLocais);
+
         mnuUsuario.setText("Usuário");
 
         mnuLogon.setText("Logon");
@@ -193,18 +204,6 @@ public class BrComAchaeu extends javax.swing.JFrame {
 
         mnuMain.add(mnuUsuario);
 
-        jMenu1.setText("Locais");
-
-        jMenuItem1.setText("Novo local");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
-        mnuMain.add(jMenu1);
-
         setJMenuBar(mnuMain);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -226,6 +225,12 @@ public class BrComAchaeu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void carregarFormLocais(Integer idLocal) throws Exception {
+        FrmNovoLocal fnl = new FrmNovoLocal(this, true, idLocal);
+        fnl.setLocationRelativeTo(this);
+        fnl.setVisible(true);
+    }
+
     public void definirVisibilidadeDosItensDeMenu() {
         boolean visivel = UsuarioManager.isUserLogged();
 
@@ -244,6 +249,8 @@ public class BrComAchaeu extends javax.swing.JFrame {
         mnuAlterar.setVisible(visivel);
         mnuUsuarioSpr1.setVisible(visivel);
         mnuLogoff.setVisible(visivel);
+
+        mnuLocais.setVisible(visivel);
     }
 
     public void fecharTodosOsDialogos() {
@@ -301,8 +308,7 @@ public class BrComAchaeu extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         try {
-            FrmNovoLocal fnl = new FrmNovoLocal(this, true, null);
-            fnl.setVisible(true);
+            this.carregarFormLocais(null);
         } catch (Exception ex) {
             Logger.getLogger(BrComAchaeu.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -312,9 +318,8 @@ public class BrComAchaeu extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {
             try {
                 DefaultTableModel dtm = (DefaultTableModel) tbLocais.getModel();
-                Integer idLocal = (Integer)dtm.getValueAt(tbLocais.getSelectedRows()[0], 0);
-                FrmNovoLocal fnl = new FrmNovoLocal(this, true, idLocal);
-                fnl.setVisible(true);
+                Integer idLocal = (Integer) dtm.getValueAt(tbLocais.getSelectedRows()[0], 0);
+                this.carregarFormLocais(idLocal);
             } catch (Exception ex) {
                 Logger.getLogger(BrComAchaeu.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -361,10 +366,7 @@ public class BrComAchaeu extends javax.swing.JFrame {
     }
 
     public void carregarLocais() {
-        List<IEntidade> locais = controller.obterTodos();
-    
-    public void carregarLocais(){
-        List<IEntidade> locais =  controller.consultarLocal(txtConsulta.getText());
+        List<IEntidade> locais = controller.consultarLocal(txtConsulta.getText());
         DefaultTableModel dtm = (DefaultTableModel) tbLocais.getModel();
         dtm.setNumRows(0);
 
@@ -375,13 +377,13 @@ public class BrComAchaeu extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem mnuAlterar;
     private javax.swing.JMenuItem mnuCriarNovaConta;
+    private javax.swing.JMenu mnuLocais;
     private javax.swing.JMenuItem mnuLogoff;
     private javax.swing.JMenuItem mnuLogon;
     private javax.swing.JMenuBar mnuMain;
