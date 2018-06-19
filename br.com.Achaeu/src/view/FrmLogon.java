@@ -8,6 +8,7 @@ package view;
 import autenticacao.UsuarioManager;
 import javax.swing.JOptionPane;
 import model.Usuario;
+import utils.StringUtils;
 
 /**
  *
@@ -16,14 +17,6 @@ import model.Usuario;
 public class FrmLogon extends javax.swing.JDialog {
     private boolean sucesso = false;
     private Usuario usuario;
-
-    private String getPasswordText() {
-        String retorno = "";
-        for(char c: txtSenha.getPassword()){
-            retorno += c;
-        }
-        return retorno;
-    }
     
     public boolean loginComSucesso(){
         return this.sucesso;
@@ -43,7 +36,7 @@ public class FrmLogon extends javax.swing.JDialog {
 
     private void login() {
         try {
-            this.usuario = UsuarioManager.logOn(txtEmail.getText(), this.getPasswordText());
+            this.usuario = UsuarioManager.logOn(txtEmail.getText(), StringUtils.getTextFromCharArray(txtSenha.getPassword()));
             if (this.usuario != null) {
                 this.sucesso = true;
                 this.dispose();

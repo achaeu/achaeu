@@ -19,8 +19,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuAlterar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Alterar..."/>
+                <Property name="text" type="java.lang.String" value="Alterar usu&#xe1;rio..."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuAlterarActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="mnuUsuarioSpr1">
             </MenuItem>
@@ -69,7 +72,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="389" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="436" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>

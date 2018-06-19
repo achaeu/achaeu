@@ -163,10 +163,9 @@ public class UsuarioManager {
             stmt = conexao.prepareStatement(sql);
 
             stmt.setString(1, usuarioAlterado.getNome());
-            stmt.setString(2, usuarioAlterado.getEmail());
-            stmt.setString(3, usuarioAlterado.getSenha() != null ? usuarioAlterado.getSenha() : senhaAtual);
-            stmt.setInt(4, usuarioAtual.getId());
-            stmt.setString(5, senhaAtual);
+            stmt.setString(2, usuarioAlterado.getSenha() != null ? usuarioAlterado.getSenha() : senhaAtual);
+            stmt.setInt(3, usuarioAtual.getId());
+            stmt.setString(4, senhaAtual);
 
             int rowCount = stmt.executeUpdate();
             if (rowCount != 1) {
