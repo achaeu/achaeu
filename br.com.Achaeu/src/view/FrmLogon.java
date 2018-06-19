@@ -67,6 +67,7 @@ public class FrmLogon extends javax.swing.JDialog {
         txtEmail = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Logon");
         setResizable(false);
 
         jButton1.setText("Login");

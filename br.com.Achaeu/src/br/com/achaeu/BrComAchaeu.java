@@ -9,7 +9,6 @@ import autenticacao.UsuarioManager;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import view.FrmLogon;
-import view.FrmNovoLocal;
 
 /**
  *
@@ -38,7 +37,13 @@ public class BrComAchaeu extends javax.swing.JFrame {
         mnuLogon = new javax.swing.JMenuItem();
         mnuLogoff = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("AchaEu!");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         mnuUsuario.setText("Usuário");
 
@@ -81,7 +86,7 @@ public class BrComAchaeu extends javax.swing.JFrame {
         mnuLogon.setVisible(!visivel);
         mnuLogoff.setVisible(visivel);
     }
-    
+
     private void mnuLogonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLogonActionPerformed
         UsuarioManager.logOff();
         FrmLogon frmLogon = new FrmLogon(this, true);
@@ -100,6 +105,17 @@ public class BrComAchaeu extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_mnuLogoffActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (JOptionPane.showConfirmDialog(this,
+                "Deseja realmente encerrar o AchaEu!?", "Sair da aplicação",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+            UsuarioManager.logOff();
+            System.exit(0);
+        }
+
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
