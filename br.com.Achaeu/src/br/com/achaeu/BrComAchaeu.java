@@ -38,6 +38,8 @@ public class BrComAchaeu extends javax.swing.JFrame {
         mnuMain = new javax.swing.JMenuBar();
         mnuUsuario = new javax.swing.JMenu();
         mnuLogon = new javax.swing.JMenuItem();
+        mnuAlterar = new javax.swing.JMenuItem();
+        mnuUsuarioSpr1 = new javax.swing.JPopupMenu.Separator();
         mnuLogoff = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -57,6 +59,10 @@ public class BrComAchaeu extends javax.swing.JFrame {
             }
         });
         mnuUsuario.add(mnuLogon);
+
+        mnuAlterar.setText("Alterar...");
+        mnuUsuario.add(mnuAlterar);
+        mnuUsuario.add(mnuUsuarioSpr1);
 
         mnuLogoff.setText("Logoff");
         mnuLogoff.addActionListener(new java.awt.event.ActionListener() {
@@ -98,6 +104,8 @@ public class BrComAchaeu extends javax.swing.JFrame {
             mnuUsuario.setText("Usuário");
         }
         mnuLogon.setVisible(!visivel);
+        mnuAlterar.setVisible(visivel);
+        mnuUsuarioSpr1.setVisible(visivel);
         mnuLogoff.setVisible(visivel);
     }
 
@@ -170,9 +178,11 @@ public class BrComAchaeu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem mnuAlterar;
     private javax.swing.JMenuItem mnuLogoff;
     private javax.swing.JMenuItem mnuLogon;
     private javax.swing.JMenuBar mnuMain;
     private javax.swing.JMenu mnuUsuario;
+    private javax.swing.JSeparator mnuUsuarioSpr1;
     // End of variables declaration//GEN-END:variables
 }
