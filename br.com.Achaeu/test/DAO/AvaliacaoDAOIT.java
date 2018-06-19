@@ -69,7 +69,7 @@ public class AvaliacaoDAOIT {
         AvaliacaoDAO da1 = new AvaliacaoDAO();
         List<IEntidade> avaliacoes = new ArrayList<>();
         
-        avaliacoes = da1.obterTodos(3);
+        avaliacoes = da1.obterTodos(4);
         
         for(IEntidade obj : avaliacoes){
             Avaliacao avals = (Avaliacao) obj;
