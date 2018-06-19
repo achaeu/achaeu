@@ -76,7 +76,7 @@ public class LocalController implements IEntidadeController {
             local.setIdCategoria(1);
             retorno = new LocalDAO().inserir(local);
         } else {
-            if (!(localizacao.getLatitude() == null) || !(localizacao.getLongitude() == null)) {
+            if (!(localizacao.getLatitude() == null) && !(localizacao.getLongitude() == null)) {
                 if (localizacao.getId() == 0) {
                     localizacao = (Localizacao) new LocalizacaoDAO().inserir(localizacao);
                 } else {
