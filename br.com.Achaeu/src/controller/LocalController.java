@@ -88,11 +88,6 @@ public class LocalController implements IEntidadeController {
         return retorno;
     }
 
-    @Override
-    public IEntidade remover() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public Boolean validarModel(IEntidade obj) {
         Local local = (Local) obj;
         List<String> erros = new ArrayList<>();
@@ -151,6 +146,11 @@ public class LocalController implements IEntidadeController {
 
     public List<IEntidade> consultarLocal(String textoConsulta) {
         return new LocalDAO().consultarLocal(textoConsulta);
+    }
+
+    @Override
+    public IEntidade remover(int id) {
+        return new LocalDAO().remover(id);
     }
 
 }

@@ -22,6 +22,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Usuario;
+import model.enums.UsuarioNivel;
+import view.FrmCategoria;
 import view.FrmLogon;
 import view.FrmNovoUsuario;
 import view.FrmNovoLocal;
@@ -52,21 +54,32 @@ public class BrComAchaeu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuBar1 = new java.awt.MenuBar();
+        menu1 = new java.awt.Menu();
+        menu2 = new java.awt.Menu();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbLocais = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         txtConsulta = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        btnRemover = new javax.swing.JButton();
         mnuMain = new javax.swing.JMenuBar();
         mnuLocais = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        mnuCategorias = new javax.swing.JMenuItem();
         mnuUsuario = new javax.swing.JMenu();
         mnuLogon = new javax.swing.JMenuItem();
         mnuAlterar = new javax.swing.JMenuItem();
         mnuCriarNovaConta = new javax.swing.JMenuItem();
         mnuUsuarioSpr1 = new javax.swing.JPopupMenu.Separator();
         mnuLogoff = new javax.swing.JMenuItem();
+
+        menu1.setLabel("File");
+        menuBar1.add(menu1);
+
+        menu2.setLabel("Edit");
+        menuBar1.add(menu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("AchaEu!");
@@ -114,7 +127,7 @@ public class BrComAchaeu extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -134,6 +147,13 @@ public class BrComAchaeu extends javax.swing.JFrame {
             }
         });
 
+        btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -141,8 +161,10 @@ public class BrComAchaeu extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtConsulta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRemover)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -151,7 +173,8 @@ public class BrComAchaeu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(btnRemover))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -164,6 +187,14 @@ public class BrComAchaeu extends javax.swing.JFrame {
             }
         });
         mnuLocais.add(jMenuItem1);
+
+        mnuCategorias.setText("Categorias");
+        mnuCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCategoriasActionPerformed(evt);
+            }
+        });
+        mnuLocais.add(mnuCategorias);
 
         mnuMain.add(mnuLocais);
 
@@ -231,7 +262,7 @@ public class BrComAchaeu extends javax.swing.JFrame {
         fnl.setVisible(true);
     }
 
-    public void definirVisibilidadeDosItensDeMenu() {
+    public void definirVisibilidadeDosItensDeMenu() throws Exception {
         boolean visivel = UsuarioManager.isUserLogged();
 
         if (visivel) {
@@ -250,7 +281,12 @@ public class BrComAchaeu extends javax.swing.JFrame {
         mnuUsuarioSpr1.setVisible(visivel);
         mnuLogoff.setVisible(visivel);
 
+        mnuCategorias.setVisible(visivel);
         mnuLocais.setVisible(visivel);
+        
+        //Definindo visibilidade por nível
+        visivel = UsuarioManager.obterLogado().getNivel() == UsuarioNivel.USUARIO_ADMIN;
+        btnRemover.setVisible(visivel);
     }
 
     public void fecharTodosOsDialogos() {
@@ -267,7 +303,11 @@ public class BrComAchaeu extends javax.swing.JFrame {
         frmLogon.setVisible(true);
 
         if (frmLogon.loginComSucesso()) {
-            this.definirVisibilidadeDosItensDeMenu();
+            try {
+                this.definirVisibilidadeDosItensDeMenu();
+            } catch (Exception ex) {
+                Logger.getLogger(BrComAchaeu.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_mnuLogonActionPerformed
 
@@ -275,7 +315,11 @@ public class BrComAchaeu extends javax.swing.JFrame {
         if (JOptionPane.showConfirmDialog(this, "Deseja mesmo fazer logoff?", "Logoff", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             UsuarioManager.logOff();
             this.fecharTodosOsDialogos();
-            this.definirVisibilidadeDosItensDeMenu();
+            try {
+                this.definirVisibilidadeDosItensDeMenu();
+            } catch (Exception ex) {
+                Logger.getLogger(BrComAchaeu.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }//GEN-LAST:event_mnuLogoffActionPerformed
@@ -327,6 +371,18 @@ public class BrComAchaeu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tbLocaisMouseClicked
 
+    private void mnuCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCategoriasActionPerformed
+        FrmCategoria fc = new FrmCategoria(this, true);
+        fc.setVisible(true);
+    }//GEN-LAST:event_mnuCategoriasActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) tbLocais.getModel();
+        Integer idLocal = (Integer) dtm.getValueAt(tbLocais.getSelectedRows()[0], 0);
+        controller.remover(idLocal);
+        this.carregarLocais();
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -357,10 +413,14 @@ public class BrComAchaeu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                BrComAchaeu main = new BrComAchaeu();
-                main.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                main.definirVisibilidadeDosItensDeMenu();
-                main.setVisible(true);
+                try {
+                    BrComAchaeu main = new BrComAchaeu();
+                    main.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    main.definirVisibilidadeDosItensDeMenu();
+                    main.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(BrComAchaeu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -375,13 +435,19 @@ public class BrComAchaeu extends javax.swing.JFrame {
             dtm.addRow(new Object[]{local.getId(), local.getNome(), local.getTelefone1()});
         }
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRemover;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private java.awt.Menu menu1;
+    private java.awt.Menu menu2;
+    private java.awt.MenuBar menuBar1;
     private javax.swing.JMenuItem mnuAlterar;
+    private javax.swing.JMenuItem mnuCategorias;
     private javax.swing.JMenuItem mnuCriarNovaConta;
     private javax.swing.JMenu mnuLocais;
     private javax.swing.JMenuItem mnuLogoff;
