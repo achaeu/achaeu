@@ -17,6 +17,7 @@ public class Categoria extends IEntidade{
 
     public Categoria() {
         super();
+//        this.categoriaPai = new Categoria();
     }
 
     public Categoria(String nome, String tags, Integer idCatPai, Categoria categoriaPai, Integer id) {

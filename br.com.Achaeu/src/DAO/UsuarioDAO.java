@@ -37,7 +37,7 @@ public class UsuarioDAO implements IRepository {
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
             stmt.setString(3, usuario.getSenha());
-            stmt.setObject(4, usuario.getNivel());
+            stmt.setInt(4, usuario.getNivel().ordinal());
 
             stmt.executeUpdate();
 
@@ -70,7 +70,7 @@ public class UsuarioDAO implements IRepository {
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
             stmt.setString(3, usuario.getSenha());
-            stmt.setObject(4, usuario.getNivel());
+            stmt.setInt(4, usuario.getNivel().ordinal());
             stmt.setInt(5, usuario.getId());
 
             stmt.execute();
