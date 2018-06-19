@@ -162,15 +162,12 @@ public class BrComAchaeu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-=======
             .addGap(0, 436, Short.MAX_VALUE)
->>>>>>> e11938db03fbbbc573bdd2323dc73aa07de557bf
         );
 
         pack();
@@ -298,7 +295,6 @@ public class BrComAchaeu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
 =======
     private javax.swing.JMenuItem mnuAlterar;
->>>>>>> e11938db03fbbbc573bdd2323dc73aa07de557bf
     private javax.swing.JMenuItem mnuLogoff;
     private javax.swing.JMenuItem mnuLogon;
     private javax.swing.JMenuBar mnuMain;
@@ -307,6 +303,5 @@ public class BrComAchaeu extends javax.swing.JFrame {
     private javax.swing.JTable tbLocais;
 =======
     private javax.swing.JSeparator mnuUsuarioSpr1;
->>>>>>> e11938db03fbbbc573bdd2323dc73aa07de557bf
     // End of variables declaration//GEN-END:variables
 }
