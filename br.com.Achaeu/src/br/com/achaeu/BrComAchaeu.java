@@ -288,20 +288,15 @@ public class BrComAchaeu extends javax.swing.JFrame {
         }
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-<<<<<<< HEAD
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-=======
     private javax.swing.JMenuItem mnuAlterar;
     private javax.swing.JMenuItem mnuLogoff;
     private javax.swing.JMenuItem mnuLogon;
     private javax.swing.JMenuBar mnuMain;
     private javax.swing.JMenu mnuUsuario;
-<<<<<<< HEAD
     private javax.swing.JTable tbLocais;
-=======
     private javax.swing.JSeparator mnuUsuarioSpr1;
     // End of variables declaration//GEN-END:variables
 }
