@@ -12,6 +12,7 @@ import controller.LocalController;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Avaliacao;
 import model.Endereco;
@@ -367,6 +368,7 @@ public class FrmNovoLocal extends javax.swing.JDialog {
             local.setEndereco(endereco);
             local.setIdUsuario(UsuarioManager.getUsuarioLogadoId());
             controller.salvar(local);
+            JOptionPane.showMessageDialog(this, "Local salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         } catch (Exception ex) {
             Logger.getLogger(FrmNovoLocal.class.getName()).log(Level.SEVERE, null, ex);

@@ -35,7 +35,11 @@ public class FrmUsuario extends javax.swing.JDialog {
             @Override
             public void windowClosed(WindowEvent e) {
                 BrComAchaeu main = (BrComAchaeu) parent;
-                main.definirVisibilidadeDosItensDeMenu();
+                try {
+                    main.definirVisibilidadeDosItensDeMenu();
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dispose();
             }
         });

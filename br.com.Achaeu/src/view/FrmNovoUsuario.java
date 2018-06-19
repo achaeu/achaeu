@@ -10,6 +10,8 @@ import br.com.achaeu.BrComAchaeu;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Usuario;
 import utils.StringUtils;
@@ -33,7 +35,11 @@ public class FrmNovoUsuario extends javax.swing.JDialog {
             @Override
             public void windowClosed(WindowEvent e) {
                 BrComAchaeu main = (BrComAchaeu) parent;
-                main.definirVisibilidadeDosItensDeMenu();
+                try {
+                    main.definirVisibilidadeDosItensDeMenu();
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmNovoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dispose();
             }
         });

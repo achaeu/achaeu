@@ -6,21 +6,16 @@
 package br.com.achaeu;
 
 import autenticacao.UsuarioManager;
-import controller.IEntidadeController;
 import controller.LocalController;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.IEntidade;
 import model.Local;
 import java.awt.Window;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.ItemListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import model.Usuario;
 import model.enums.UsuarioNivel;
 import view.FrmCategoria;
@@ -283,9 +278,13 @@ public class BrComAchaeu extends javax.swing.JFrame {
 
         mnuCategorias.setVisible(visivel);
         mnuLocais.setVisible(visivel);
-        
+
         //Definindo visibilidade por nível
-        visivel = UsuarioManager.obterLogado().getNivel() == UsuarioNivel.USUARIO_ADMIN;
+        if (UsuarioManager.isUserLogged()) {
+            visivel = UsuarioManager.obterLogado().getNivel() == UsuarioNivel.USUARIO_ADMIN;
+        } else {
+            visivel = false;
+        }
         btnRemover.setVisible(visivel);
     }
 
@@ -435,7 +434,7 @@ public class BrComAchaeu extends javax.swing.JFrame {
             dtm.addRow(new Object[]{local.getId(), local.getNome(), local.getTelefone1()});
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton jButton1;
