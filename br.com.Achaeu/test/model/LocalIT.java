@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package model;
 
+import DAO.LocalDAO;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import model.HorarioLocal;
-import model.IEntidade;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
@@ -19,23 +18,24 @@ import org.junit.Ignore;
  *
  * @author Rodrigo
  */
-public class HorarioLocalDAOIT {
+public class LocalIT {
     
-    public HorarioLocalDAOIT() {
+    public LocalIT() {
     }
 
-  @Test
-    //@Ignore
+@Test
+    @Ignore
     public void inserir() {
         
-        HorarioLocal l1 = new HorarioLocal();
-        HorarioLocalDAO dao1 = new HorarioLocalDAO();
+        Local l1 = new Local();
+        LocalDAO dao1 = new LocalDAO();
         
-        l1.setEntrada1(Time.valueOf("10:00:00"));
-        l1.setSaida1(Time.valueOf("10:00:00"));
-        l1.setDiaSemana(1);
-        l1.setFuncionamento(1);
-        l1.setIdLocal(4);
+        l1.setNome("Local teste");
+        l1.setDescricao("TEste de Criação de DAO");
+        l1.setIdUsuario(2);
+        l1.setIdEndereco(1);
+        l1.setIdCategoria(1);
+        
         
         if (dao1.inserir(l1).getId() != 0 ){
             System.out.println("Inserido com sucesso!");
@@ -46,17 +46,17 @@ public class HorarioLocalDAOIT {
     
     
     @Test
-    @Ignore
+    //@Ignore
     public void alterar(){
         
-        HorarioLocal l1 = new HorarioLocal();
-        HorarioLocalDAO da1 = new HorarioLocalDAO();
+        Local l1 = new Local();
+        LocalDAO da1 = new LocalDAO();
         System.out.println("Teste 2");
         
         // Obtem o que deseja alterar 
-        l1 = (HorarioLocal) da1.obterUm(5);
+        l1 = (Local) da1.obterUm(5);
         // Altera o local
-        l1.setEntrada1(Time.valueOf(LocalTime.MIN));
+        l1.setDescricao("Descrição 223");
         // Grava alteração
         da1.alterar(l1);
     }
@@ -65,8 +65,8 @@ public class HorarioLocalDAOIT {
     @Ignore
     public void ObterTodos(){
       
-        HorarioLocal l1 = new HorarioLocal();
-        HorarioLocalDAO da1 = new HorarioLocalDAO();
+        Local l1 = new Local();
+        LocalDAO da1 = new LocalDAO();
         List<IEntidade> fotos = new ArrayList<>();
         
         fotos = da1.obterTodos();
@@ -80,7 +80,7 @@ public class HorarioLocalDAOIT {
     @Test
     @Ignore
     public void remover(){
-        HorarioLocalDAO dao1 = new HorarioLocalDAO();
+        LocalDAO dao1 = new LocalDAO();
         dao1.remover(5);
         
     }
