@@ -10,8 +10,6 @@ import br.com.achaeu.BrComAchaeu;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Usuario;
 import utils.StringUtils;
@@ -20,14 +18,14 @@ import utils.StringUtils;
  *
  * @author jonathan
  */
-public class FrmUsuario extends javax.swing.JDialog {
+public class FrmNovoUsuario extends javax.swing.JDialog {
 
     private Usuario usuario;
 
     /**
      * Creates new form FrmUsuario
      */
-    public FrmUsuario(java.awt.Frame parent, boolean modal) {
+    public FrmNovoUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
@@ -51,17 +49,17 @@ public class FrmUsuario extends javax.swing.JDialog {
     private void initComponents() {
 
         txtNome = new javax.swing.JTextField();
-        txtNovaSenha = new javax.swing.JPasswordField();
-        txtSenhaAtual = new javax.swing.JPasswordField();
         txtConfirmarSenha = new javax.swing.JPasswordField();
+        txtSenha = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnAlterar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        txtEmail = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Alterar usuário");
         setResizable(false);
         setType(java.awt.Window.Type.UTILITY);
@@ -73,13 +71,13 @@ public class FrmUsuario extends javax.swing.JDialog {
 
         jLabel1.setText("Nome de usuário");
 
-        jLabel2.setText("Senha atual");
+        jLabel2.setText("E-mail");
 
-        jLabel3.setText("Nova senha");
+        jLabel3.setText("Senha");
 
-        jLabel4.setText("Confirmar nova senha");
+        jLabel4.setText("Confirmar senha");
 
-        btnAlterar.setText("Alterar");
+        btnAlterar.setText("Criar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
@@ -101,24 +99,23 @@ public class FrmUsuario extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                        .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addComponent(txtNome))
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtSenhaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2))
-                .addGap(21, 21, 21))
+                    .addComponent(txtConfirmarSenha)
+                    .addComponent(jLabel2)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22))
             .addGroup(layout.createSequentialGroup()
-                .addGap(84, 84, 84)
+                .addGap(43, 43, 43)
                 .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,15 +127,15 @@ public class FrmUsuario extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSenhaAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAlterar)
@@ -150,12 +147,7 @@ public class FrmUsuario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        try {
-            this.usuario = UsuarioManager.obterLogado();
-        } catch (Exception ex) {
-            Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        txtNome.setText(usuario.getNome());
+        this.usuario = new Usuario();
     }//GEN-LAST:event_formWindowOpened
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -163,17 +155,17 @@ public class FrmUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        if (txtNome.getText().isEmpty() || txtSenhaAtual.getPassword().length == 0) {
-            JOptionPane.showMessageDialog(this, "Nome de usuário e senha atual são obrigatórios!", "Atenção", JOptionPane.ERROR_MESSAGE);
+        if (txtNome.getText().isEmpty() || txtEmail.getText().isEmpty() || txtSenha.getPassword().length == 0) {
+            JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios!", "Atenção", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (!Arrays.equals(txtNovaSenha.getPassword(), txtConfirmarSenha.getPassword())) {
-            JOptionPane.showMessageDialog(this, "Nova senha e confirmação não coincidem!", "Atenção", JOptionPane.ERROR_MESSAGE);
+        if (!Arrays.equals(txtSenha.getPassword(), txtConfirmarSenha.getPassword())) {
+            JOptionPane.showMessageDialog(this, "Senha e confirmação não coincidem!", "Atenção", JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
-            this.alterarUsuario();
-            JOptionPane.showMessageDialog(this, "Usuário alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            this.criarUsuario();
+            JOptionPane.showMessageDialog(this, "Usuário criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro ao alterar", JOptionPane.ERROR_MESSAGE);
@@ -181,10 +173,12 @@ public class FrmUsuario extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnAlterarActionPerformed
 
-    private void alterarUsuario() throws Exception {
+    private void criarUsuario() throws Exception {
         this.usuario.setNome(txtNome.getText());
-        this.usuario.setSenha(StringUtils.getTextFromCharArray(txtNovaSenha.getPassword()));
-        UsuarioManager.alterar(usuario, StringUtils.getTextFromCharArray(txtSenhaAtual.getPassword()));
+        this.usuario.setEmail(txtEmail.getText());
+        this.usuario.setSenha(StringUtils.getTextFromCharArray(txtSenha.getPassword()));
+        UsuarioManager.inserir(usuario);
+        UsuarioManager.logOn(usuario.getEmail(), usuario.getSenha());
     }
 
     /**
@@ -204,20 +198,21 @@ public class FrmUsuario extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmNovoUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmNovoUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmNovoUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmNovoUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmUsuario dialog = new FrmUsuario(new javax.swing.JFrame(), true);
+                FrmNovoUsuario dialog = new FrmNovoUsuario(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -237,8 +232,8 @@ public class FrmUsuario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField txtConfirmarSenha;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JPasswordField txtNovaSenha;
-    private javax.swing.JPasswordField txtSenhaAtual;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
