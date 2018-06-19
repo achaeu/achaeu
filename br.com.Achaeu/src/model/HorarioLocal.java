@@ -11,35 +11,30 @@ import java.sql.Time;
  *
  * @author igor-bueno
  */
-public class HorarioLocal extends IEntidade{
-    private Integer idHorario;
+public class HorarioLocal extends IEntidade {
+
     private Time entrada1;
     private Time saida1;
     private Time entrada2;
     private Time saida2;
     private Integer funcionamento;
     private Integer diaSemana;
+    private Integer idLocal;
+    private Local local;
 
     public HorarioLocal() {
     }
 
-    public HorarioLocal(Integer id, Integer idHorario, Time entrada1, Time saida1, Time entrada2, Time saida2, Integer funcionamento, Integer diaSemana) {
+    public HorarioLocal(Time entrada1, Time saida1, Time entrada2, Time saida2, Integer funcionamento, Integer diaSemana, Integer idLocal, Local local, Integer id) {
         super(id);
-        this.idHorario = idHorario;
         this.entrada1 = entrada1;
         this.saida1 = saida1;
         this.entrada2 = entrada2;
         this.saida2 = saida2;
         this.funcionamento = funcionamento;
         this.diaSemana = diaSemana;
-    }
-
-    public Integer getIdHorario() {
-        return idHorario;
-    }
-
-    public void setIdHorario(Integer idHorario) {
-        this.idHorario = idHorario;
+        this.idLocal = idLocal;
+        this.local = local;
     }
 
     public Time getEntrada1() {
@@ -90,8 +85,24 @@ public class HorarioLocal extends IEntidade{
         this.diaSemana = diaSemana;
     }
 
+    public Integer getIdLocal() {
+        return idLocal;
+    }
+
+    public void setIdLocal(Integer idLocal) {
+        this.idLocal = idLocal;
+    }
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public void setLocal(Local local) {
+        this.local = local;
+    }
+
     @Override
     public String toString() {
-        return "HorarioLocal{" + "id=" + super.getId() + ", idHorario=" + idHorario + ", entrada1=" + entrada1 + ", saida1=" + saida1 + ", entrada2=" + entrada2 + ", saida2=" + saida2 + ", funcionamento=" + funcionamento + ", diaSemana=" + diaSemana + '}';
-    } 
+        return "HorarioLocal{" + "entrada1=" + entrada1 + ", saida1=" + saida1 + ", entrada2=" + entrada2 + ", saida2=" + saida2 + ", funcionamento=" + funcionamento + ", diaSemana=" + diaSemana + ", idLocal=" + idLocal + ", local=" + local + '}';
+    }    
 }

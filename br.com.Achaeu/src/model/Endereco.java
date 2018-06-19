@@ -17,11 +17,13 @@ public class Endereco extends IEntidade {
     private String cidade;
     private String uf;
     private Integer idLocalizacao;
+    private Localizacao localizacao;
 
     public Endereco() {
+        this.localizacao = new Localizacao();
     }
 
-    public Endereco(Integer id, String logradouro, Integer numero, String bairro, String cep, String cidade, String uf, Integer idLocalizacao) {
+    public Endereco(String logradouro, Integer numero, String bairro, String cep, String cidade, String uf, Integer idLocalizacao, Localizacao localizacao, Integer id) {
         super(id);
         this.logradouro = logradouro;
         this.numero = numero;
@@ -30,6 +32,7 @@ public class Endereco extends IEntidade {
         this.cidade = cidade;
         this.uf = uf;
         this.idLocalizacao = idLocalizacao;
+        this.localizacao = localizacao;
     }
 
     public String getLogradouro() {
@@ -87,6 +90,14 @@ public class Endereco extends IEntidade {
     public void setIdLocalizacao(Integer idLocalizacao) {
         this.idLocalizacao = idLocalizacao;
     }
+
+    public Localizacao getLocalizacao() {
+        return localizacao;
+    }
+
+    public void setLocalizacao(Localizacao localizacao) {
+        this.localizacao = localizacao;
+    }    
 
     @Override
     public String toString() {

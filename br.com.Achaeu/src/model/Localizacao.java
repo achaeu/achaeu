@@ -22,6 +22,13 @@ public class Localizacao extends IEntidade{
         this.latitude = latitude;
         this.longitude = longitude;
     }
+    
+    
+    public Localizacao(Double latitude, Double longitude) {
+        super(0);
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     public Double getLatitude() {
         return latitude;
@@ -42,6 +49,10 @@ public class Localizacao extends IEntidade{
     @Override
     public String toString() {
         return "Localizacao{"+ "id=" + super.getId() + "latitude=" + latitude + ", longitude=" + longitude + '}';
+    }
+
+    public void setLatitude(float f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

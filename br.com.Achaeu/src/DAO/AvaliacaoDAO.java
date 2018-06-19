@@ -97,7 +97,11 @@ public class AvaliacaoDAO implements IRepository {
             PreparedStatement stmt = null;
             ResultSet rs = null;
 
+<<<<<<< HEAD
             String sql = "SELECT * FROM avaliacao WHERE id=" + id;
+=======
+            String sql = "SELECT * FROM AVALIACAO WHERE ID=" + Integer.toString(id);
+>>>>>>> eaa1ff78183b7b9a24e169f088b3eb32e1964f93
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -130,7 +134,11 @@ public class AvaliacaoDAO implements IRepository {
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
             ResultSet rs = null;
+<<<<<<< HEAD
             String sql = "SELECT * FROM avaliacao";
+=======
+            String sql = "SELECT * FROM AVALIACAO";
+>>>>>>> eaa1ff78183b7b9a24e169f088b3eb32e1964f93
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -155,10 +163,63 @@ public class AvaliacaoDAO implements IRepository {
             return null;
         }
     }
+    
+    public List<IEntidade> obterTodos(int id) {
 
+        try {
+            Avaliacao avaliacao = null;
+            List<IEntidade> avaliacoes = new ArrayList<>();
+
+            Connection conexao = ConnectionManager.getConexao();
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String sql = "SELECT * FROM AVALIACAO WHERE ID_LOCAL = '" + Integer.toString(id) + "' ";
+
+            stmt = conexao.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                avaliacao = new Avaliacao();
+                avaliacao.setId(rs.getInt("ID"));
+                avaliacao.setConteudo(rs.getString("CONTEUDO"));
+                avaliacao.setIdUsuario(rs.getInt("ID_USUARIO"));
+                avaliacao.setIdLocal(rs.getInt("ID_LOCAL"));
+                avaliacao.setNota(rs.getFloat("NOTA"));
+                avaliacao.setDataCriacao(rs.getTimestamp("DATA_CRIACAO"));
+                avaliacao.setDataAlteracao(rs.getTimestamp("DATA_ALTERACAO"));
+                // Adicionar a lista
+                avaliacoes.add(avaliacao);
+            }
+
+            return avaliacoes;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AvaliacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
     @Override
     public IEntidade remover(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+
+            Connection conexao = ConnectionManager.getConexao();
+            PreparedStatement stmt = null;
+            Avaliacao avaliacao = new Avaliacao();
+            avaliacao = (Avaliacao) obterUm(id);
+
+            String sql = "DELETE FROM AVALIACAO WHERE ID =" + Integer.toString(id);
+            stmt = conexao.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+            return avaliacao;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AvaliacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
     }
 
 }
