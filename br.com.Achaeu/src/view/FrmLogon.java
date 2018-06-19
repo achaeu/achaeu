@@ -6,10 +6,9 @@
 package view;
 
 import autenticacao.UsuarioManager;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Usuario;
+import utils.StringUtils;
 
 /**
  *
@@ -17,17 +16,14 @@ import model.Usuario;
  */
 public class FrmLogon extends javax.swing.JDialog {
     private boolean sucesso = false;
-
-    private String getPasswordText() {
-        String retorno = "";
-        for(char c: txtSenha.getPassword()){
-            retorno += c;
-        }
-        return retorno;
-    }
+    private Usuario usuario;
     
     public boolean loginComSucesso(){
         return this.sucesso;
+    }
+    
+    public Usuario getUsuario(){
+        return this.usuario;
     }
 
     /**
@@ -40,8 +36,8 @@ public class FrmLogon extends javax.swing.JDialog {
 
     private void login() {
         try {
-            Usuario usuario = UsuarioManager.logOn(txtEmail.getText(), this.getPasswordText());
-            if (usuario != null) {
+            this.usuario = UsuarioManager.logOn(txtEmail.getText(), StringUtils.getTextFromCharArray(txtSenha.getPassword()));
+            if (this.usuario != null) {
                 this.sucesso = true;
                 this.dispose();
             }
@@ -132,6 +128,7 @@ public class FrmLogon extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.sucesso = false;
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
