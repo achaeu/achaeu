@@ -28,7 +28,7 @@ public class FotoDAO implements IRepository{
             Foto foto = (Foto) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "INSERT INTO foto"
+            String sql = "INSERT INTO FOTO"
                     + " (DIRETORIO_ABSOLUTO, ID_LOCAL)"
                     + "VALUES (?,?);";
 
@@ -60,7 +60,7 @@ public class FotoDAO implements IRepository{
             Foto foto = (Foto) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "UPDATE foto SET DIRETORIO_ABSOLUTO = ?, ID_LOCAL = ? "
+            String sql = "UPDATE FOTO SET DIRETORIO_ABSOLUTO = ?, ID_LOCAL = ? "
                     + "WHERE ID = ?;";
 
             stmt = conexao.prepareStatement(sql);
@@ -89,7 +89,7 @@ public class FotoDAO implements IRepository{
             PreparedStatement stmt = null;
             ResultSet rs = null;
 
-            String sql = "SELECT * FROM foto WHERE id=" + Integer.toString(id);
+            String sql = "SELECT * FROM FOTO WHERE ID=" + Integer.toString(id);
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -118,7 +118,7 @@ public class FotoDAO implements IRepository{
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            String sql = "SELECT * FROM foto";
+            String sql = "SELECT * FROM FOTO";
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -149,7 +149,7 @@ public class FotoDAO implements IRepository{
             Foto foto = new Foto();
             foto = (Foto) obterUm(id);
 
-            String sql = "DELETE FROM foto WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM FOTO WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();

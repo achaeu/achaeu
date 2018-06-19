@@ -27,7 +27,7 @@ public class LocalDAO implements IRepository{
             Local local = (Local) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "INSERT INTO local"
+            String sql = "INSERT INTO LOCAL"
                     + " (NOME, DESCRICAO, ID_USUARIO, ID_ENDERECO, TELEFONE_1, TELEFONE_2, ID_CATEGORIA)"
                     + "VALUES (?,?,?,?,?,?,?);";
 
@@ -64,7 +64,7 @@ public class LocalDAO implements IRepository{
             Local local = (Local) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "UPDATE local SET NOME = ?, DESCRICAO = ?, ID_USUARIO = ?, ID_ENDERECO = ?,"
+            String sql = "UPDATE LOCAL SET NOME = ?, DESCRICAO = ?, ID_USUARIO = ?, ID_ENDERECO = ?,"
                     + " TELEFONE_1 = ?, TELEFONE_2 = ?, ID_CATEGORIA = ? WHERE ID = ?";
             
             stmt = conexao.prepareStatement(sql);
@@ -98,7 +98,7 @@ public class LocalDAO implements IRepository{
             PreparedStatement stmt = null;
             ResultSet rs = null;
 
-            String sql = "SELECT * FROM local WHERE id=" + Integer.toString(id);
+            String sql = "SELECT * FROM LOCAL WHERE id=" + Integer.toString(id);
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -132,7 +132,7 @@ public class LocalDAO implements IRepository{
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            String sql = "SELECT * FROM local";
+            String sql = "SELECT * FROM LOCAL";
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -169,7 +169,7 @@ public class LocalDAO implements IRepository{
             Local local = new Local();
             local = (Local) obterUm(id);
 
-            String sql = "DELETE FROM local WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM LOCAL WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();

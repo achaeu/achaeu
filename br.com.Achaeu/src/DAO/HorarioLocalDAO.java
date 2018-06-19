@@ -27,9 +27,9 @@ public class HorarioLocalDAO implements IRepository{
             HorarioLocal horarioLocal = (HorarioLocal) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "INSERT INTO horarioLocal"
-                    + " (ENTRADA1, SAIDA1, ENTRADA2, SAIDA2, FUNCIONAMENTO, DIASEMANA)"
-                    + "VALUES (?,?,?,?,?,?);";
+            String sql = "INSERT INTO HORARIO_LOCAL"
+                    + " (ENTRADA1, SAIDA1, ENTRADA2, SAIDA2, FUNCIONAMENTO, DIASEMANA, ID_LOCAL)"
+                    + "VALUES (?,?,?,?,?,?,?);";
 
             stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
@@ -39,6 +39,7 @@ public class HorarioLocalDAO implements IRepository{
             stmt.setTime(4, horarioLocal.getSaida2());
             stmt.setInt(5, horarioLocal.getFuncionamento());
             stmt.setInt(6, horarioLocal.getDiaSemana());
+            stmt.setInt(7, horarioLocal.getIdLocal());
 
             stmt.executeUpdate();
 
@@ -63,8 +64,8 @@ public class HorarioLocalDAO implements IRepository{
             HorarioLocal horarioLocal = (HorarioLocal) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "UPDATE horarioLocal SET ENTRADA1 = ?, SAIDA1 = ?, ENTRADA2 = ?, SAIDA2 = ?,"
-                    + " FUNCIONAMENTO = ?, DIA_SEMANA = ? WHERE ID = ?";
+            String sql = "UPDATE HORARIO_LOCAL SET ENTRADA1 = ?, SAIDA1 = ?, ENTRADA2 = ?, SAIDA2 = ?,"
+                    + " FUNCIONAMENTO = ?, DIA_SEMANA = ?, ID_LOCAL = ? WHERE ID = ?";
             
             stmt = conexao.prepareStatement(sql);
 
@@ -74,7 +75,8 @@ public class HorarioLocalDAO implements IRepository{
             stmt.setTime(4, horarioLocal.getSaida2());
             stmt.setInt(5, horarioLocal.getFuncionamento());
             stmt.setInt(6, horarioLocal.getDiaSemana());
-            stmt.setInt(7, horarioLocal.getId());
+            stmt.setInt(7, horarioLocal.getIdLocal());
+            stmt.setInt(8, horarioLocal.getId());
 
             stmt.execute();
 
@@ -96,7 +98,7 @@ public class HorarioLocalDAO implements IRepository{
             PreparedStatement stmt = null;
             ResultSet rs = null;
 
-            String sql = "SELECT * FROM horarioLocal WHERE id=" + Integer.toString(id);
+            String sql = "SELECT * FROM HORARIO_LOCAL WHERE id=" + Integer.toString(id);
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -110,6 +112,7 @@ public class HorarioLocalDAO implements IRepository{
                 horarioLocal.setSaida2(rs.getTime(5));
                 horarioLocal.setFuncionamento(rs.getInt(6));
                 horarioLocal.setDiaSemana(rs.getInt(7));
+                horarioLocal.setIdLocal(rs.getInt(8));
   
             }
             return horarioLocal;
@@ -129,7 +132,7 @@ public class HorarioLocalDAO implements IRepository{
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            String sql = "SELECT * FROM horarioLocal";
+            String sql = "SELECT * FROM HORARIO_LOCAL";
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -143,6 +146,7 @@ public class HorarioLocalDAO implements IRepository{
                 horarioLocal.setSaida2(rs.getTime(5));
                 horarioLocal.setFuncionamento(rs.getInt(6));
                 horarioLocal.setDiaSemana(rs.getInt(7));
+                horarioLocal.setIdLocal(rs.getInt(8));
                 // Adicionar a lista
                 horarioLocals.add(horarioLocal);
             }
@@ -164,7 +168,7 @@ public class HorarioLocalDAO implements IRepository{
             HorarioLocal horarioLocal = new HorarioLocal();
             horarioLocal = (HorarioLocal) obterUm(id);
 
-            String sql = "DELETE FROM horarioLocal WHERE ID =" + Integer.toString(id);
+            String sql = "DELETE FROM HORARIO_LOCAL WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();
