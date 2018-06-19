@@ -64,7 +64,7 @@ public class HorarioLocalDAO implements IRepository{
             HorarioLocal horarioLocal = (HorarioLocal) objeto;
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "UPDATE HORARIO_LOCAL SET ENTRADA1 = ?, SAIDA1 = ?, ENTRADA2 = ?, SAIDA2 = ?,"
+            String sql = "UPDATE HORARIO_LOCAL SET ENTRADA_1 = ?, SAIDA_1 = ?, ENTRADA_2 = ?, SAIDA_2 = ?,"
                     + " FUNCIONAMENTO = ?, DIA_SEMANA = ?, ID_LOCAL = ? WHERE ID = ?";
             
             stmt = conexao.prepareStatement(sql);
