@@ -6,8 +6,11 @@
 package br.com.achaeu;
 
 import autenticacao.UsuarioManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import model.Usuario;
 import view.FrmLogon;
 
 /**
@@ -83,6 +86,17 @@ public class BrComAchaeu extends javax.swing.JFrame {
 
     private void definirVisibilidadeDosItensDeMenu() {
         boolean visivel = UsuarioManager.isUserLogged();
+
+        if (visivel) {
+            try {
+                Usuario usuario = UsuarioManager.obterLogado();
+                mnuUsuario.setText(usuario.getNome());
+            } catch (Exception ex) {
+                Logger.getLogger(BrComAchaeu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            mnuUsuario.setText("Usuário");
+        }
         mnuLogon.setVisible(!visivel);
         mnuLogoff.setVisible(visivel);
     }

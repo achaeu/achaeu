@@ -6,8 +6,6 @@
 package view;
 
 import autenticacao.UsuarioManager;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Usuario;
 
@@ -17,6 +15,7 @@ import model.Usuario;
  */
 public class FrmLogon extends javax.swing.JDialog {
     private boolean sucesso = false;
+    private Usuario usuario;
 
     private String getPasswordText() {
         String retorno = "";
@@ -29,6 +28,10 @@ public class FrmLogon extends javax.swing.JDialog {
     public boolean loginComSucesso(){
         return this.sucesso;
     }
+    
+    public Usuario getUsuario(){
+        return this.usuario;
+    }
 
     /**
      * Creates new form FrmLogin
@@ -40,8 +43,8 @@ public class FrmLogon extends javax.swing.JDialog {
 
     private void login() {
         try {
-            Usuario usuario = UsuarioManager.logOn(txtEmail.getText(), this.getPasswordText());
-            if (usuario != null) {
+            this.usuario = UsuarioManager.logOn(txtEmail.getText(), this.getPasswordText());
+            if (this.usuario != null) {
                 this.sucesso = true;
                 this.dispose();
             }
@@ -132,6 +135,7 @@ public class FrmLogon extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.sucesso = false;
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
