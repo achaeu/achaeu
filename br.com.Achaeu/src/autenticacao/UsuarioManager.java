@@ -38,16 +38,15 @@ public class UsuarioManager {
         prefs.remove(LOGGED_USER);
 
         Connection conexao = ConnectionManager.getConexao();
-        PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "SELECT ID, NOME, EMAIL, NIVEL FROM usuario "
+        String sql = "SELECT ID, NOME, EMAIL, NIVEL FROM USUARIO "
                 + "WHERE EMAIL = ? AND SENHA = ?";
 
+        PreparedStatement stmt = conexao.prepareStatement(sql);
         stmt.setString(1, email);
         stmt.setString(2, senha);
 
-        stmt = conexao.prepareStatement(sql);
         rs = stmt.executeQuery();
         Usuario usuario = null;
 

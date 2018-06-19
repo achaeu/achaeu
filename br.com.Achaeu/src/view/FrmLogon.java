@@ -16,6 +16,7 @@ import model.Usuario;
  * @author jonathan
  */
 public class FrmLogon extends javax.swing.JDialog {
+    private boolean sucesso = false;
 
     private String getPasswordText() {
         String retorno = "";
@@ -23,6 +24,10 @@ public class FrmLogon extends javax.swing.JDialog {
             retorno += c;
         }
         return retorno;
+    }
+    
+    public boolean loginComSucesso(){
+        return this.sucesso;
     }
 
     /**
@@ -37,6 +42,7 @@ public class FrmLogon extends javax.swing.JDialog {
         try {
             Usuario usuario = UsuarioManager.logOn(txtEmail.getText(), this.getPasswordText());
             if (usuario != null) {
+                this.sucesso = true;
                 this.dispose();
             }
         } catch (Exception ex) {
