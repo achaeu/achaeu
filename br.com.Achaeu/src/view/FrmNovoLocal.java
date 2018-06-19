@@ -5,24 +5,40 @@
  */
 package view;
 
+import autenticacao.UsuarioManager;
+import controller.AvaliacaoController;
 import controller.IEntidadeController;
 import controller.LocalController;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import model.Avaliacao;
 import model.Endereco;
+import model.IEntidade;
 import model.Local;
 import model.Localizacao;
+import model.Usuario;
 
 /**
  *
  * @author igor-bueno
  */
 public class FrmNovoLocal extends javax.swing.JDialog {
-    IEntidadeController controller = new LocalController();
+
+    private IEntidadeController controller = new LocalController();
+    private AvaliacaoController avaliacaoController = new AvaliacaoController();
+    private Local local = null;
+    private Integer idLocal;
+
     /**
      * Creates new form FrmNewLocal
      */
-    public FrmNovoLocal(java.awt.Frame parent, boolean modal) {
+    public FrmNovoLocal(java.awt.Frame parent, boolean modal, Integer idLocal) throws Exception {
         super(parent, modal);
         initComponents();
+        this.idLocal = idLocal;
+        initForm();
     }
 
     /**
@@ -59,13 +75,16 @@ public class FrmNovoLocal extends javax.swing.JDialog {
         txtCidade = new javax.swing.JTextField();
         txtUF = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        txtLatitude = new javax.swing.JTextField();
-        txtLongitude = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbAvaliacoes = new javax.swing.JTable();
+        jLabel14 = new javax.swing.JLabel();
+        txtConteudo = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        txtNota = new javax.swing.JComboBox<>();
+        btnAvaliar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -146,40 +165,6 @@ public class FrmNovoLocal extends javax.swing.JDialog {
 
         jLabel11.setText("UF: *");
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Localização (Opcional)"));
-
-        jLabel12.setText("Lat.:");
-
-        jLabel13.setText("Long.:");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12)
-                .addGap(6, 6, 6)
-                .addComponent(txtLatitude, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel13)
-                        .addComponent(txtLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel12)
-                        .addComponent(txtLatitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 8, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -187,27 +172,24 @@ public class FrmNovoLocal extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                            .addComponent(txtLogradouro)
-                            .addComponent(txtBairro))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel11))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUF)
-                            .addComponent(txtCEP)
-                            .addComponent(txtNumero))))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                    .addComponent(txtLogradouro)
+                    .addComponent(txtBairro))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUF, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                    .addComponent(txtCEP)
+                    .addComponent(txtNumero))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -230,9 +212,7 @@ public class FrmNovoLocal extends javax.swing.JDialog {
                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(txtUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         jButton2.setText("Cancelar");
@@ -249,6 +229,76 @@ public class FrmNovoLocal extends javax.swing.JDialog {
             }
         });
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Avaliações"));
+
+        tbAvaliacoes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Usuário", "Nota", "Avaliação"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tbAvaliacoes);
+
+        jLabel14.setText("Avaliação:");
+
+        jLabel15.setText("Nota:");
+
+        txtNota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+
+        btnAvaliar.setText("Avaliar");
+        btnAvaliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAvaliarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtConteudo, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtNota, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAvaliar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(txtConteudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(txtNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAvaliar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -256,8 +306,13 @@ public class FrmNovoLocal extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton2)
@@ -269,9 +324,12 @@ public class FrmNovoLocal extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -287,33 +345,48 @@ public class FrmNovoLocal extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Local local = new Local();
-        Endereco endereco = new Endereco();
-        Localizacao localizacao = new Localizacao();
+        try {
+            Endereco endereco = new Endereco();
+            Localizacao localizacao = new Localizacao();
 
-        local.setNome(txtNome.getText());
-        local.setDescricao(txtDescricao.getText());
-        local.setTelefone1(txtTelefone1.getText());
-        local.setTelefone2(txtTelefone2.getText());
-        endereco.setLogradouro(txtLogradouro.getText());
-        if (!txtNumero.getText().isEmpty()) {
-            endereco.setNumero(Integer.parseInt(txtNumero.getText()));
-        }
-        endereco.setBairro(txtBairro.getText());
-        endereco.setCep(txtCEP.getText());
-        endereco.setCidade(txtCidade.getText());
-        endereco.setUf(txtUF.getText());
-        if (!txtLatitude.getText().isEmpty()) {
-            localizacao.setLatitude(Double.parseDouble(txtLatitude.getText()));
-        }
-        if (!txtLongitude.getText().isEmpty()) {
-            localizacao.setLongitude(Double.parseDouble(txtLongitude.getText()));
-        }
+            local.setNome(txtNome.getText());
+            local.setDescricao(txtDescricao.getText());
+            local.setTelefone1(txtTelefone1.getText());
+            local.setTelefone2(txtTelefone2.getText());
+            endereco.setLogradouro(txtLogradouro.getText());
+            if (!txtNumero.getText().isEmpty()) {
+                endereco.setNumero(Integer.parseInt(txtNumero.getText()));
+            }
+            endereco.setId(local.getIdEndereco());
+            endereco.setBairro(txtBairro.getText());
+            endereco.setCep(txtCEP.getText());
+            endereco.setCidade(txtCidade.getText());
+            endereco.setUf(txtUF.getText());
 
-        endereco.setLocalizacao(localizacao);
-        local.setEndereco(endereco);
-        controller.salvar(local);
+            endereco.setLocalizacao(localizacao);
+            local.setEndereco(endereco);
+            local.setIdUsuario(UsuarioManager.getUsuarioLogadoId());
+            controller.salvar(local);
+            this.dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(FrmNovoLocal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnAvaliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvaliarActionPerformed
+        try {
+            Avaliacao avaliacao = new Avaliacao();
+            avaliacao.setConteudo(txtConteudo.getText());
+            avaliacao.setIdLocal(idLocal);
+            String notaString = txtNota.getSelectedItem().toString();
+            avaliacao.setNota(Float.parseFloat(notaString));
+            
+            avaliacaoController.salvar(avaliacao);
+            this.initTableAvaliacoes();
+        } catch (Exception ex) {
+            Logger.getLogger(FrmNovoLocal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAvaliarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -346,27 +419,32 @@ public class FrmNovoLocal extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmNovoLocal dialog = new FrmNovoLocal(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                try {
+                    FrmNovoLocal dialog = new FrmNovoLocal(new javax.swing.JFrame(), true, null);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                        @Override
+                        public void windowClosing(java.awt.event.WindowEvent e) {
+                            System.exit(0);
+                        }
+                    });
+                    dialog.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmNovoLocal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAvaliar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -375,21 +453,65 @@ public class FrmNovoLocal extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tbAvaliacoes;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCEP;
     private javax.swing.JTextField txtCidade;
+    private javax.swing.JTextField txtConteudo;
     private javax.swing.JTextArea txtDescricao;
-    private javax.swing.JTextField txtLatitude;
     private javax.swing.JTextField txtLogradouro;
-    private javax.swing.JTextField txtLongitude;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JComboBox<String> txtNota;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtTelefone1;
     private javax.swing.JTextField txtTelefone2;
     private javax.swing.JTextField txtUF;
     // End of variables declaration//GEN-END:variables
+
+    private void verificarVisibilidadeDeAvaliacoes() {
+        if (this.idLocal == null) {
+            btnAvaliar.setEnabled(false);
+            txtConteudo.setEnabled(false);
+            txtNota.setEnabled(false);
+        }
+    }
+
+    private void initForm() throws Exception {
+        if (!(this.idLocal == null)) {
+            this.local = (Local) controller.obterUm(idLocal);
+
+            txtNome.setText(this.local.getNome());
+            txtDescricao.setText(this.local.getDescricao());
+            txtTelefone1.setText(this.local.getTelefone1());
+            txtTelefone2.setText(this.local.getTelefone2());
+            txtLogradouro.setText(this.local.getEndereco().getLogradouro());
+            txtNumero.setText(this.local.getEndereco().getNumero().toString());
+            txtBairro.setText(this.local.getEndereco().getBairro());
+            txtCEP.setText(this.local.getEndereco().getCep());
+            txtCidade.setText(this.local.getEndereco().getCidade());
+            txtUF.setText(this.local.getEndereco().getUf());
+            initTableAvaliacoes();
+        } else {
+            this.local = new Local();
+        }
+        verificarVisibilidadeDeAvaliacoes();
+    }
+
+    private void initTableAvaliacoes() throws Exception {
+        //Inserindo avaliações
+        List<IEntidade> avaliacoes = avaliacaoController.obterTodos(idLocal);
+        DefaultTableModel dtm = (DefaultTableModel) tbAvaliacoes.getModel();
+        dtm.setNumRows(0);
+
+        for (IEntidade obj : avaliacoes) {
+            Avaliacao avaliacao = (Avaliacao) obj;
+            Usuario usuario = UsuarioManager.obterUm(avaliacao.getIdUsuario());
+            dtm.addRow(new Object[]{usuario.getNome(), avaliacao.getNota(), avaliacao.getConteudo()});
+        }
+    }
 }

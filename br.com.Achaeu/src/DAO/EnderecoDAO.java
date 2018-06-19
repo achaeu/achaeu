@@ -29,8 +29,8 @@ public class EnderecoDAO implements IRepository {
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
             String sql = "INSERT INTO ENDERECO"
-                    + " (LOGRADOURO,NUMERO,BAIRRO,CEP,CIDADE,UF,ID_LOCALIZACAO)"
-                    + "VALUES (?,?,?,?,?,?,?);";
+                    + " (LOGRADOURO,NUMERO,BAIRRO,CEP,CIDADE,UF)"
+                    + "VALUES (?,?,?,?,?,?);";
 
             stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
@@ -40,7 +40,6 @@ public class EnderecoDAO implements IRepository {
             stmt.setString(4, endereco.getCep());
             stmt.setString(5, endereco.getCidade());
             stmt.setString(6, endereco.getUf());
-            stmt.setInt(7, endereco.getIdLocalizacao());
 
             int numero = stmt.executeUpdate();
 
@@ -66,7 +65,7 @@ public class EnderecoDAO implements IRepository {
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
             String sql = "UPDATE ENDERECO SET LOGRADOURO = ?, NUMERO = ?, BAIRRO = ?, CEP = ?,"
-                    + "CIDADE = ?, UF = ?, ID_LOCALIZACAO = ? WHERE ID = ?;";
+                    + "CIDADE = ?, UF = ? WHERE ID = ?;";
 
             stmt = conexao.prepareStatement(sql);
 
@@ -76,8 +75,7 @@ public class EnderecoDAO implements IRepository {
             stmt.setString(4, endereco.getCep());
             stmt.setString(5, endereco.getCidade());
             stmt.setString(6, endereco.getUf());
-            stmt.setInt(7, endereco.getIdLocalizacao());
-            stmt.setInt(8, endereco.getId());
+            stmt.setInt(7, endereco.getId());
 
             stmt.execute();
 

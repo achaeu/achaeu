@@ -80,7 +80,7 @@ public class UsuarioManager {
         return usuarioLogado;
     }
 
-    private static Usuario obterUm(int id) throws SQLException, Exception {
+    public static Usuario obterUm(int id) throws SQLException, Exception {
         Connection conexao = ConnectionManager.getConexao();
         PreparedStatement stmt = null;
         ResultSet rs = null;

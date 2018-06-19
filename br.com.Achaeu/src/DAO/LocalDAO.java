@@ -200,29 +200,25 @@ public class LocalDAO implements IRepository {
                 String textoArray[] = textoConsulta.split(" ");
                 cFiltro = "WHERE ";
 
-                if ((textoArray.length) > 1) {
-                    for (String texto : textoArray) {
-                        if (nC == 0) {
-                            cFiltro += "loc.DESCRICAO LIKE '%" + texto + "%'";
-                        } else {
-                            cFiltro += " OR loc.DESCRICAO LIKE '%" + texto + "%'";
-                        }
-                        cFiltro += " OR end.LOGRADOURO  LIKE '%" + texto + "%'";
-                        cFiltro += " OR cat.NOME LIKE '%" + texto + "%'";
-                        nC++;
+                for (String texto : textoArray) {
+                    if (nC == 0) {
+                        cFiltro += "loc.DESCRICAO LIKE '%" + texto + "%'";
+                    } else {
+                        cFiltro += " OR loc.DESCRICAO LIKE '%" + texto + "%'";
                     }
-                } else {
-                    cFiltro += "loc.DESCRICAO LIKE '%" + textoArray[0] + "%'";
-                    cFiltro += "OR end.LOGRADOURO LIKE '%" + textoArray[0] + "%'";
-                    cFiltro += "OR cat.NOME LIKE '%" + textoArray[0] + "%'";
+                    cFiltro += " OR loc.NOME  LIKE '%" + texto + "%'";
+                    cFiltro += " OR end.LOGRADOURO  LIKE '%" + texto + "%'";
+                    cFiltro += " OR cat.NOME LIKE '%" + texto + "%'";
+                    nC++;
                 }
+
             }
-            String sql = "SELECT * FROM local loc ";
-            sql += " LEFT JOIN usuario usr ";
+            String sql = "SELECT * FROM LOCAL loc ";
+            sql += " LEFT JOIN USUARIO usr ";
             sql += " 	ON usr.ID = loc.ID_USUARIO";
-            sql += " LEFT JOIN endereco end";
+            sql += " LEFT JOIN ENDERECO end";
             sql += " 	ON end.ID = loc.ID_ENDERECO";
-            sql += " LEFT JOIN categoria cat";
+            sql += " LEFT JOIN CATEGORIA cat";
             sql += " 	ON cat.ID = loc.ID_CATEGORIA ";
             sql += cFiltro;
 
