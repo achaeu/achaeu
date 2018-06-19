@@ -97,7 +97,11 @@ public class AvaliacaoDAO implements IRepository {
             PreparedStatement stmt = null;
             ResultSet rs = null;
 
+<<<<<<< HEAD
+            String sql = "SELECT * FROM avaliacao WHERE id=" + id;
+=======
             String sql = "SELECT * FROM AVALIACAO WHERE ID=" + Integer.toString(id);
+>>>>>>> eaa1ff78183b7b9a24e169f088b3eb32e1964f93
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -130,7 +134,11 @@ public class AvaliacaoDAO implements IRepository {
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
             ResultSet rs = null;
+<<<<<<< HEAD
+            String sql = "SELECT * FROM avaliacao";
+=======
             String sql = "SELECT * FROM AVALIACAO";
+>>>>>>> eaa1ff78183b7b9a24e169f088b3eb32e1964f93
 
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
