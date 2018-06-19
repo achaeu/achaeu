@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.Avaliacao;
+import model.Categoria;
 import model.Endereco;
 import model.IEntidade;
 import model.Local;
@@ -39,6 +40,7 @@ public class FrmNovoLocal extends javax.swing.JDialog {
         initComponents();
         this.idLocal = idLocal;
         initForm();
+        carregarComboCategorias();
     }
 
     /**
@@ -61,7 +63,7 @@ public class FrmNovoLocal extends javax.swing.JDialog {
         txtTelefone1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txtCategoria = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtLogradouro = new javax.swing.JTextField();
@@ -104,8 +106,6 @@ public class FrmNovoLocal extends javax.swing.JDialog {
 
         jLabel6.setText("Categoria: *");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -124,7 +124,7 @@ public class FrmNovoLocal extends javax.swing.JDialog {
                     .addComponent(txtTelefone1)
                     .addComponent(txtTelefone2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -147,7 +147,7 @@ public class FrmNovoLocal extends javax.swing.JDialog {
                     .addComponent(txtTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)))
         );
 
@@ -364,6 +364,7 @@ public class FrmNovoLocal extends javax.swing.JDialog {
             endereco.setUf(txtUF.getText());
 
             endereco.setLocalizacao(localizacao);
+            local.setIdCategoria(Integer.parseInt(txtCategoria.getSelectedItem().toString().split(" ")[0]));
             local.setEndereco(endereco);
             local.setIdUsuario(UsuarioManager.getUsuarioLogadoId());
             controller.salvar(local);
@@ -380,7 +381,7 @@ public class FrmNovoLocal extends javax.swing.JDialog {
             avaliacao.setIdLocal(idLocal);
             String notaString = txtNota.getSelectedItem().toString();
             avaliacao.setNota(Float.parseFloat(notaString));
-            
+
             avaliacaoController.salvar(avaliacao);
             this.initTableAvaliacoes();
         } catch (Exception ex) {
@@ -439,7 +440,6 @@ public class FrmNovoLocal extends javax.swing.JDialog {
     private javax.swing.JButton btnAvaliar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -461,6 +461,7 @@ public class FrmNovoLocal extends javax.swing.JDialog {
     private javax.swing.JTable tbAvaliacoes;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCEP;
+    private javax.swing.JComboBox<String> txtCategoria;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtConteudo;
     private javax.swing.JTextArea txtDescricao;
@@ -512,6 +513,18 @@ public class FrmNovoLocal extends javax.swing.JDialog {
             Avaliacao avaliacao = (Avaliacao) obj;
             Usuario usuario = UsuarioManager.obterUm(avaliacao.getIdUsuario());
             dtm.addRow(new Object[]{usuario.getNome(), avaliacao.getNota(), avaliacao.getConteudo()});
+        }
+    }
+
+    private void carregarComboCategorias() {
+        List<IEntidade> locais = controller.obterTodos();
+        if (locais.size() == 0) {
+            return;
+        }
+
+        for (IEntidade obj : locais) {
+            Categoria categoria = (Categoria) obj;
+            txtCategoria.addItem(categoria.getId().toString() + " " + "-" + " " + categoria.getNome());
         }
     }
 }
