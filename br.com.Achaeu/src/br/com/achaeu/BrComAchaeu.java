@@ -5,7 +5,10 @@
  */
 package br.com.achaeu;
 
-import view.FrmNovoLocal;
+import autenticacao.UsuarioManager;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import view.FrmLogon;
 
 /**
  *
@@ -29,62 +32,90 @@ public class BrComAchaeu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jInternalFrame1 = new javax.swing.JInternalFrame();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
-        button1 = new java.awt.Button();
+        mnuMain = new javax.swing.JMenuBar();
+        mnuUsuario = new javax.swing.JMenu();
+        mnuLogon = new javax.swing.JMenuItem();
+        mnuLogoff = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jInternalFrame1.setVisible(true);
-
-        button1.setLabel("button1");
-        button1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("AchaEu!");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(208, 208, 208)
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
-        );
-        jInternalFrame1Layout.setVerticalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jDesktopPane1))
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 316, Short.MAX_VALUE))
-        );
+        mnuUsuario.setText("Usuário");
+
+        mnuLogon.setText("Logon");
+        mnuLogon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuLogonActionPerformed(evt);
+            }
+        });
+        mnuUsuario.add(mnuLogon);
+
+        mnuLogoff.setText("Logoff");
+        mnuLogoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuLogoffActionPerformed(evt);
+            }
+        });
+        mnuUsuario.add(mnuLogoff);
+
+        mnuMain.add(mnuUsuario);
+
+        setJMenuBar(mnuMain);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jInternalFrame1)
+            .addGap(0, 620, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jInternalFrame1)
-                .addContainerGap())
+            .addGap(0, 389, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-        FrmNovoLocal addLocal = new FrmNovoLocal();
-        addLocal.setVisible(true);
-    }//GEN-LAST:event_button1ActionPerformed
+    private void definirVisibilidadeDosItensDeMenu() {
+        boolean visivel = UsuarioManager.isUserLogged();
+        mnuLogon.setVisible(!visivel);
+        mnuLogoff.setVisible(visivel);
+    }
+
+    private void mnuLogonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLogonActionPerformed
+        UsuarioManager.logOff();
+        FrmLogon frmLogon = new FrmLogon(this, true);
+        frmLogon.setLocationRelativeTo(this);
+        frmLogon.setVisible(true);
+
+        if (frmLogon.loginComSucesso()) {
+            this.definirVisibilidadeDosItensDeMenu();
+        }
+    }//GEN-LAST:event_mnuLogonActionPerformed
+
+    private void mnuLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLogoffActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Deseja mesmo fazer logoff?", "Logoff", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            UsuarioManager.logOff();
+            this.definirVisibilidadeDosItensDeMenu();
+        }
+
+    }//GEN-LAST:event_mnuLogoffActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (JOptionPane.showConfirmDialog(this,
+                "Deseja realmente encerrar o AchaEu!?", "Sair da aplicação",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+            UsuarioManager.logOff();
+            System.exit(0);
+        }
+
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -116,14 +147,18 @@ public class BrComAchaeu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BrComAchaeu().setVisible(true);
+                BrComAchaeu main = new BrComAchaeu();
+                main.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                main.definirVisibilidadeDosItensDeMenu();
+                main.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button button1;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JInternalFrame jInternalFrame1;
+    private javax.swing.JMenuItem mnuLogoff;
+    private javax.swing.JMenuItem mnuLogon;
+    private javax.swing.JMenuBar mnuMain;
+    private javax.swing.JMenu mnuUsuario;
     // End of variables declaration//GEN-END:variables
 }
