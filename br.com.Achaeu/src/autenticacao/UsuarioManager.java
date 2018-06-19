@@ -70,7 +70,7 @@ public class UsuarioManager {
         prefs.remove(LOGGED_USER);
     }
 
-    private static int getUsuarioLogadoId() throws Exception {
+    public static int getUsuarioLogadoId() throws Exception {
         Preferences prefs = Preferences.userNodeForPackage(br.com.achaeu.BrComAchaeu.class);
 
         int usuarioLogado = prefs.getInt(LOGGED_USER, 0);
@@ -80,7 +80,7 @@ public class UsuarioManager {
         return usuarioLogado;
     }
 
-    private static Usuario obterUm(int id) throws SQLException, Exception {
+    public static Usuario obterUm(int id) throws SQLException, Exception {
         Connection conexao = ConnectionManager.getConexao();
         PreparedStatement stmt = null;
         ResultSet rs = null;
