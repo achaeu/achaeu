@@ -6,9 +6,14 @@
 package br.com.achaeu;
 
 import autenticacao.UsuarioManager;
+import java.awt.Window;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import model.Usuario;
 import view.FrmLogon;
+import view.FrmUsuario;
 
 /**
  *
@@ -35,6 +40,8 @@ public class BrComAchaeu extends javax.swing.JFrame {
         mnuMain = new javax.swing.JMenuBar();
         mnuUsuario = new javax.swing.JMenu();
         mnuLogon = new javax.swing.JMenuItem();
+        mnuAlterar = new javax.swing.JMenuItem();
+        mnuUsuarioSpr1 = new javax.swing.JPopupMenu.Separator();
         mnuLogoff = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -54,6 +61,15 @@ public class BrComAchaeu extends javax.swing.JFrame {
             }
         });
         mnuUsuario.add(mnuLogon);
+
+        mnuAlterar.setText("Alterar usuário...");
+        mnuAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAlterarActionPerformed(evt);
+            }
+        });
+        mnuUsuario.add(mnuAlterar);
+        mnuUsuario.add(mnuUsuarioSpr1);
 
         mnuLogoff.setText("Logoff");
         mnuLogoff.addActionListener(new java.awt.event.ActionListener() {
@@ -75,7 +91,7 @@ public class BrComAchaeu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGap(0, 436, Short.MAX_VALUE)
         );
 
         pack();
@@ -83,8 +99,28 @@ public class BrComAchaeu extends javax.swing.JFrame {
 
     private void definirVisibilidadeDosItensDeMenu() {
         boolean visivel = UsuarioManager.isUserLogged();
+
+        if (visivel) {
+            try {
+                Usuario usuario = UsuarioManager.obterLogado();
+                mnuUsuario.setText(usuario.getNome());
+            } catch (Exception ex) {
+                Logger.getLogger(BrComAchaeu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            mnuUsuario.setText("Usuário");
+        }
         mnuLogon.setVisible(!visivel);
+        mnuAlterar.setVisible(visivel);
+        mnuUsuarioSpr1.setVisible(visivel);
         mnuLogoff.setVisible(visivel);
+    }
+    
+    private void fecharTodosOsDialogos(){
+        Window[] diags = this.getOwnedWindows();
+        for(Window w: diags){
+            w.dispose();
+        }
     }
 
     private void mnuLogonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLogonActionPerformed
@@ -101,6 +137,7 @@ public class BrComAchaeu extends javax.swing.JFrame {
     private void mnuLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLogoffActionPerformed
         if (JOptionPane.showConfirmDialog(this, "Deseja mesmo fazer logoff?", "Logoff", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             UsuarioManager.logOff();
+            this.fecharTodosOsDialogos();
             this.definirVisibilidadeDosItensDeMenu();
         }
 
@@ -116,6 +153,15 @@ public class BrComAchaeu extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_formWindowClosing
+
+    private void mnuAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAlterarActionPerformed
+        FrmUsuario frmUsuario = new FrmUsuario(this, false);
+        frmUsuario.setLocationRelativeTo(null);
+        frmUsuario.setVisible(true);
+        if(frmUsuario.isSuccess()){
+            this.definirVisibilidadeDosItensDeMenu();
+        }
+    }//GEN-LAST:event_mnuAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,9 +202,11 @@ public class BrComAchaeu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem mnuAlterar;
     private javax.swing.JMenuItem mnuLogoff;
     private javax.swing.JMenuItem mnuLogon;
     private javax.swing.JMenuBar mnuMain;
     private javax.swing.JMenu mnuUsuario;
+    private javax.swing.JSeparator mnuUsuarioSpr1;
     // End of variables declaration//GEN-END:variables
 }

@@ -70,7 +70,7 @@ public class UsuarioManager {
         prefs.remove(LOGGED_USER);
     }
 
-    private int getUsuarioLogadoId() throws Exception {
+    private static int getUsuarioLogadoId() throws Exception {
         Preferences prefs = Preferences.userNodeForPackage(br.com.achaeu.BrComAchaeu.class);
 
         int usuarioLogado = prefs.getInt(LOGGED_USER, 0);
@@ -80,12 +80,12 @@ public class UsuarioManager {
         return usuarioLogado;
     }
 
-    private Usuario obterUm(int id) throws SQLException, Exception {
+    private static Usuario obterUm(int id) throws SQLException, Exception {
         Connection conexao = ConnectionManager.getConexao();
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "SELECT ID, NOME, EMAIL, NIVEL FROM usuario WHERE id = " + Integer.toString(id);
+        String sql = "SELECT ID, NOME, EMAIL, NIVEL FROM USUARIO WHERE id = " + Integer.toString(id);
 
         stmt = conexao.prepareStatement(sql);
         rs = stmt.executeQuery();
@@ -104,9 +104,9 @@ public class UsuarioManager {
         return usuario;
     }
 
-    public Usuario obterLogado() throws Exception {
+    public static Usuario obterLogado() throws Exception {
         try {
-            return this.obterUm(this.getUsuarioLogadoId());
+            return obterUm(getUsuarioLogadoId());
 
         } catch (SQLException ex) {
             Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,12 +114,12 @@ public class UsuarioManager {
         }
     }
 
-    public Usuario inserir(Usuario usuario) throws Exception {
+    public static Usuario inserir(Usuario usuario) throws Exception {
         try {
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "INSERT INTO usuario"
-                    + " (nome, email, senha, nivel)"
+            String sql = "INSERT INTO USUARIO"
+                    + " (NOME, EMAIL, SENHA, NIVEL)"
                     + "VALUES (?,?,?, ?)";
 
             stmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -147,26 +147,25 @@ public class UsuarioManager {
     }
 
     // Senha deve ser passada como parâmetro, pois o ObterUm não busca a senha por motivo de segurança
-    public Usuario alterar(Usuario usuarioAlterado, String senhaAtual) throws Exception {
+    public static Usuario alterar(Usuario usuarioAlterado, String senhaAtual) throws Exception {
         try {
             if (!isUserLogged()) {
                 throw new Exception("Usuário precisa estar logado para esta operação");
             }
-            Usuario usuarioAtual = this.obterLogado();
+            Usuario usuarioAtual = obterLogado();
 
             Connection conexao = ConnectionManager.getConexao();
             PreparedStatement stmt = null;
-            String sql = "UPDATE usuario"
+            String sql = "UPDATE USUARIO"
                     + " SET NOME = ?, SENHA = ? "
                     + "WHERE ID = ? AND SENHA = ?";
 
             stmt = conexao.prepareStatement(sql);
 
             stmt.setString(1, usuarioAlterado.getNome());
-            stmt.setString(2, usuarioAlterado.getEmail());
-            stmt.setString(3, usuarioAlterado.getSenha() != null ? usuarioAlterado.getSenha() : senhaAtual);
-            stmt.setInt(4, usuarioAtual.getId());
-            stmt.setString(5, senhaAtual);
+            stmt.setString(2, usuarioAlterado.getSenha() != null ? usuarioAlterado.getSenha() : senhaAtual);
+            stmt.setInt(3, usuarioAtual.getId());
+            stmt.setString(4, senhaAtual);
 
             int rowCount = stmt.executeUpdate();
             if (rowCount != 1) {
@@ -174,7 +173,7 @@ public class UsuarioManager {
             }
 
             stmt.close();
-            return this.obterLogado();
+            return obterLogado();
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -183,11 +182,11 @@ public class UsuarioManager {
         return null;
     }
 
-    public Usuario tornarAdmin(int idUsuario) throws Exception {
+    public static Usuario tornarAdmin(int idUsuario) throws Exception {
         if (!isUserLogged()) {
             throw new Exception("Usuário precisa estar logado para esta operação");
         }
-        Usuario usuarioAtual = this.obterLogado();
+        Usuario usuarioAtual = obterLogado();
         if (usuarioAtual.getNivel() != UsuarioNivel.USUARIO_ADMIN) {
             throw new Exception("Usuário precisa ser admin.");
         }
@@ -206,7 +205,7 @@ public class UsuarioManager {
             throw new Exception("Usuário não encontrado!");
         }
         stmt.close();
-        return this.obterUm(idUsuario);
+        return obterUm(idUsuario);
     }
 
     public Usuario remover(int usuarioId) throws Exception {
@@ -216,7 +215,7 @@ public class UsuarioManager {
             PreparedStatement stmt = null;
             Usuario usuario = this.obterUm(usuarioId);
 
-            String sql = "DELETE FROM usuario WHERE ID = " + Integer.toString(usuarioId);
+            String sql = "DELETE FROM USUARIO WHERE ID = " + Integer.toString(usuarioId);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
             stmt.close();
