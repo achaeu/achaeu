@@ -73,7 +73,7 @@ public class AvaliacaoController implements IEntidadeController {
     }
 
     @Override
-    public IEntidade remover() {
+    public IEntidade remover(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

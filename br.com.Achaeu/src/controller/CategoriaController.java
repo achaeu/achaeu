@@ -66,8 +66,9 @@ public class CategoriaController implements IEntidadeController{
     }
 
     @Override
-    public IEntidade remover() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public IEntidade remover(int id) {        
+        CategoriaDAO dao = new CategoriaDAO();  
+        return dao.remover(id);
     }
     
 }

@@ -23,7 +23,6 @@ public class FrmCategoria extends javax.swing.JDialog {
     public FrmCategoria(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.carregarCategorias();
     }
 
     /**
@@ -236,7 +235,9 @@ public class FrmCategoria extends javax.swing.JDialog {
         List<IEntidade> locais =  controller.obterTodos();
         DefaultTableModel dtm = (DefaultTableModel) tbCategorias.getModel();
         dtm.setNumRows(0);
-        
+        if(locais.size() == 0){
+            return;
+        }
         for (IEntidade obj : locais) {
             Categoria categoria = (Categoria) obj;
             dtm.addRow(new Object[]{categoria.getId(), categoria.getNome(), categoria.getCategoriaPai().getId(), categoria.getCategoriaPai().getNome()});
