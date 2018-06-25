@@ -105,6 +105,7 @@ public class CategoriaDAO implements IRepository {
                 categoria.setIdCatPai(rs.getInt("ID_CAT_PAI"));
                 categoria.setCategoriaPai((Categoria) this.obterUm(categoria.getIdCatPai()));
             }
+            conexao.close();
             return categoria;
 
         } catch (SQLException ex) {

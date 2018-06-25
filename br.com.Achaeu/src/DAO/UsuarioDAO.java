@@ -46,7 +46,7 @@ public class UsuarioDAO implements IRepository {
                 usuario.setId(rs.getInt(1));
             }
 
-            stmt.close();
+            conexao.close();
             return usuario;
 
         } catch (SQLException ex) {
@@ -75,7 +75,7 @@ public class UsuarioDAO implements IRepository {
 
             stmt.execute();
 
-            stmt.close();
+            conexao.close();
             return usuario;
 
         } catch (SQLException ex) {
@@ -108,6 +108,7 @@ public class UsuarioDAO implements IRepository {
                 usuario.setDataCriacao(rs.getTimestamp(6));
                 usuario.setDataAlteracao(rs.getTimestamp(7));
             }
+            conexao.close();
             return usuario;
 
         } catch (SQLException ex) {
@@ -143,7 +144,7 @@ public class UsuarioDAO implements IRepository {
                 // Adicionar a lista
                 usuarios.add(usuario);
             }
-
+            conexao.close();
             return usuarios;
 
         } catch (SQLException ex) {
@@ -164,7 +165,7 @@ public class UsuarioDAO implements IRepository {
             String sql = "DELETE FROM usuario WHERE ID =" + Integer.toString(id);
             stmt = conexao.prepareStatement(sql);
             stmt.execute();
-            stmt.close();
+            conexao.close();
 
             return usuario;
 
